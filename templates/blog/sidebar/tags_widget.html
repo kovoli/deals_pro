@@ -1,0 +1,10 @@
+<div class="widget popular-tags panel pt-20 prl-20">
+    <h3 class="widget-title h-title">Тэги</h3>
+    <div class="widget-body pt-30 pb-20">
+        <div class="tags">
+            {% for tag in tags %}
+            <a href="{{ tag.get_absolute_url }}" class="badge">{{ tag }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

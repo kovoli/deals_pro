@@ -1,0 +1,14 @@
+<div class="widget categories-widget panel pt-20 prl-20">
+    <div class="widget-header">
+        <h3 class="widget-title h-title">Категории блога</h3>
+    </div>
+    <div class="widget-body ptb-20">
+        <ul>
+            {% for category in num_cat %}
+                <li>
+                <a href="#">{{ category }}<span>{{ category.num_posts }}</span></a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
