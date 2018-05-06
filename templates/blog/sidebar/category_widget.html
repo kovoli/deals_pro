@@ -6,7 +6,7 @@
         <ul>
             {% for category in num_cat %}
                 <li>
-                <a href="#">{{ category }}<span>{{ category.num_posts }}</span></a>
+                <a href="{{ category.get_absolute_url }}">{{ category }}<span>{{ category.num_posts }}</span></a>
                 </li>
             {% endfor %}
         </ul>
