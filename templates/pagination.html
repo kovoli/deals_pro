@@ -2,38 +2,31 @@
 <div class="page-pagination text-center mt-30 p-10 panel">
     <nav>
         <!-- Page Pagination -->
-        <ul class="page-pagination">
+        <ul class="page-pagination pagination-sm">
             {% if posts.has_previous %}
-            <li>
-                <a class="page-numbers previous" href="?page={{ posts.previous_page_number }}"><</a>
-            </li>
+                <li><a class="page-numbers" href="?page=1"><i class="fa fa-fast-backward" aria-hidden="true"></i></a></li>
+                <li><a class="page-numbers previous" href="?page={{ posts.previous_page_number }}"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
             {% endif %}
+
             {% for i in posts.paginator.page_range %}
+
                 {% if posts.number == i %}
                     <li><span class="page-numbers current">{{ i }}</span></li>
-                {% else %}
                     <!-- For the 1st page we do not use ?page=1 -->
-                    {% if i == 1 %}
-                        <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
-
-                    {% else %}
                         <!-- Show current page and +-3 pages -->
-                        {% if i|add:"-3" <= posts.number and posts.number <= i|add:"3" %}
+                        {% elif i|add:"-5" <= posts.number and posts.number <= i|add:"2" %}
                             <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
 
-                        <!-- Shows every 10th page and the last page -->
-                        {% elif i|divisibleby:"10" or i == posts.paginator.num_pages %}
-                            <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
                         {% endif %}
 
-                    {% endif %}
-                {% endif %}
+
             {% endfor %}
             {% if posts.has_next %}
-                <li><a href="?page={{ posts.next_page_number }}" class="page-numbers next">></a></li>
+                <li><a href="?page={{ posts.next_page_number }}" class="page-numbers next"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
+                <li><a class="page-numbers" href="?page={{ posts.paginator.num_pages }}"><i class="fa fa-fast-forward" aria-hidden="true"></i></a></li>
             {% endif %}
         </ul>
         <!-- End Page Pagination -->
     </nav>
 </div>
-<!-- End Blog Pagination -->
+                        <!-- End Blog Pagination -->
