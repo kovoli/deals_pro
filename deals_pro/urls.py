@@ -22,7 +22,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
-    path('shop/', include('shop.urls', namespace='shop')),
+    path('', include('shop.urls', namespace='shop')),
     path('', views.main_page_list, name='Home')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
