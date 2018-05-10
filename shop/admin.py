@@ -10,7 +10,8 @@ class StoreAdmin(admin.ModelAdmin):
 
 class CouponAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
-    list_display = ('title', 'slug', 'promocode')
+    list_display = ('title', 'slug', 'promocode', 'expired')
+    list_editable = ['expired']
 
 
 class CategoryAdmin(admin.ModelAdmin):

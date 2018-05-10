@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Store, Coupon
 from deals_pro import helpers
+from _datetime import datetime
 
 
 def store_list(request):
@@ -17,6 +18,6 @@ def store_detail(request, store):
 
 
 def coupon_list(request):
-    posts = Coupon.objects.all()
+    posts = Coupon.objects.filter(expired__gt=datetime.now())
 
     return render(request, 'coupon/coupons_list.html', {'posts': posts})

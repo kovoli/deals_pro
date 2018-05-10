@@ -67,9 +67,8 @@ class Coupon(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)
     coupon_link = models.URLField(max_length=250)
-    active = models.DateField()
     expired = models.DateTimeField()
-    promocode = models.CharField(max_length=200)
+    promocode = models.CharField(max_length=200, blank=True)
     image = models.ImageField(upload_to='coupon_image/%Y/%m', blank=True)
     coupon_image = ImageSpecField(source='image',
                                  processors=[ResizeToFill(600, 400)],
