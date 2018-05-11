@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Store,  Coupon, Category
+from .models import Store,  Coupon, Category, CouponType
 
 
 class StoreAdmin(admin.ModelAdmin):
@@ -14,6 +14,13 @@ class CouponAdmin(admin.ModelAdmin):
     list_editable = ['expired']
 
 
+class CouponTypeAdmin(admin.ModelAdmin):
+    list_display = ('type', 'slug',)
+    search_fields = ('type',)
+
+    prepopulated_fields = {'slug': ('type',)}
+
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug',)
     search_fields = ('name',)
@@ -23,4 +30,5 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Coupon, CouponAdmin)
+admin.site.register(CouponType, CouponTypeAdmin)
 admin.site.register(Category, CategoryAdmin)
