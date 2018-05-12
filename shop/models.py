@@ -77,7 +77,7 @@ class CouponType(models.Model):
 
 
 class Coupon(models.Model):
-    title = models.CharField(max_length=250, verbose_name='Скидка')
+    title = models.CharField(max_length=250, verbose_name='Купон')
     slug = models.SlugField()
     author = models.ForeignKey(User, default=User,
                                related_name='shop_coupons', on_delete=models.CASCADE)
@@ -108,3 +108,40 @@ class Coupon(models.Model):
     class Meta:
         verbose_name = 'Купон'
         verbose_name_plural = 'Купоны'
+
+
+class Deal(models.Model):
+    name = models.CharField(max_length=250, verbose_name='скидка')
+    slug = models.SlugField()
+    author = models.ForeignKey(User, default=User, on_delete=models.CASCADE)
+    description = models.TextField()
+    vendor = models.CharField(max_length=200)
+    shop = models.ForeignKey(Store, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    old_price = models.DecimalField(max_digits=10, decimal_places=2)
+    url = models.URLField()
+    categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
+    original_picture = models.ImageField(upload_to='deals_images/%Y/%m', blank=True)
+    deals_image = ImageSpecField(source='original_picture',
+                                  processors=[ResizeToFill(600, 600)],
+                                  format='JPEG',
+                                  options={'quality': 50})
+    deals_grid_image = ImageSpecField(source='original_picture',
+                                 processors=[ResizeToFill(800, 500)],
+                                 format='JPEG',
+                                 options={'quality': 50})
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(unidecode(self.name))
+        super(Deal, self).save()
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('deal:deal_detail', args=[self.slug])
+
+    class Meta:
+        verbose_name = 'Скидка'
+        verbose_name_plural = 'Скидки'

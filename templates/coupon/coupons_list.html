@@ -60,7 +60,7 @@
                                                 </button>
                                                 <div class="row row-v-10">
                                                     <div class="col-md-10 col-md-offset-1">
-                                                        <img src="{{ coupon.shop.img_single_store.url }}" alt="">
+                                                        <img src="{{ coupon.shop.img_single_store.url }}" alt="{{ coupon.title }}">
                                                         <h3 class="mb-20">{{ coupon.title }}</h3>
                                                         <p class="color-mid">{{ coupon.body }}</p>
                                                     </div>
@@ -68,6 +68,7 @@
                                                         <a href="{{ coupon.coupon_link }}" class="btn btn-link">Посетить магазин</a>
                                                     </div>
                                                     <div class="col-md-10 col-md-offset-1">
+
                                                         <h6 class="color-mid t-uppercase">Нажмите ниже чтобы принять участие в акции</h6>
                                                         <a href="{{ coupon.coupon_link }}" target="_blank" class="coupon-code">{{ coupon.promocode }}</a>
                                                     </div>

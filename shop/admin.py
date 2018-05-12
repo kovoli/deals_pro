@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Store,  Coupon, Category, CouponType
+from .models import Store,  Coupon, Category, CouponType, Deal
 
 
 class StoreAdmin(admin.ModelAdmin):
@@ -28,6 +28,14 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+class DealAdmin(admin.ModelAdmin):
+    list_display = ('name', 'price', 'old_price', 'categoryId')
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
+    list_editable = ['price', 'old_price', 'categoryId']
+
+
+admin.site.register(Deal, DealAdmin)
 admin.site.register(Store, StoreAdmin)
 admin.site.register(Coupon, CouponAdmin)
 admin.site.register(CouponType, CouponTypeAdmin)
