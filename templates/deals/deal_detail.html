@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{ post.title|capfirst }} - {{ block.super }}
+{% endblock %}
+
+{% block content %}
+<!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
+<main id="mainContent" class="main-content">
+    <!-- Page Container -->
+    <div class="page-container ptb-60">
+        <div class="container">
+            <div class="row row-rl-10 row-tb-20">
+                <div class="page-content col-xs-12 col-sm-7 col-md-8">
+                    <div class="row row-tb-20">
+                        <div class="col-xs-12">
+                            <div class="deal-deatails panel">
+                                <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_image.url }}"></figure>
+                                <div class="deal-body p-20">
+                                    <h2 class="mb-10">{{ deal.name }}</h2>
+                                    <h3 class="price ptb-5 text-left"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
+                                    <div class="entry-content">
+                                        {{ deal.description }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="page-sidebar col-md-4 col-sm-5 col-xs-12">
+                    <!-- Blog Sidebar -->
+                    <aside class="sidebar blog-sidebar">
+                        <div class="row row-tb-10">
+                            <div class="col-xs-12">
+                                <div class="widget single-deal-widget panel ptb-30 prl-20">
+                                    <div class="widget-body text-center">
+                                        <ul class="deal-meta list-inline mb-10 color-mid">
+                                            <li><i class="ico fa fa-globe mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a>
+                                            </li>
+                                            <li><i class="ico fa fa-map-marker mr-10"></i>{{ deal.categoryId.name }}</li>
+                                        </ul>
+                                        <div class="price mb-20">
+                                            <h2 class="price"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h2>
+                                        </div>
+                                        <div class="buy-now mb-40">
+                                            <a href="{{ deal.url }}" target="_blank" class="btn btn-block btn-lg">
+                                                <i class="fa fa-shopping-cart font-16 mr-10"></i> Приобрести
+                                            </a>
+                                        </div>
+                                        <div class="time-left mb-30">
+                                            <p class="t-uppercase color-muted">
+                                                Скидки действуют обычно всего несколько дней, не упустите возможность!
+                                            </p>
+                                        </div>
+                                        <ul class="list-inline social-icons social-icons--colored t-center">
+                                            <li class="social-icons__item">
+                                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                            </li>
+                                            <li class="social-icons__item">
+                                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                            </li>
+                                            <li class="social-icons__item">
+                                                <a href="#"><i class="fa fa-pinterest"></i></a>
+                                            </li>
+                                            <li class="social-icons__item">
+                                                <a href="#"><i class="fa fa-linkedin"></i></a>
+                                            </li>
+                                            <li class="social-icons__item">
+                                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <!-- Recent Posts -->
+                                <div class="widget about-seller-widget panel ptb-30 prl-20">
+                                    <h3 class="widget-title h-title">О Магазине</h3>
+                                    <div class="widget-body t-center">
+                                        <figure class="mt-20 pb-10">
+                                            <img src="{{ deal.shop.img_single_store.url }}" alt="Скидки в магазине {{ deal.shop.title }}">
+                                        </figure>
+                                        <div class="store-about mb-20">
+                                            <h3 class="mb-10">{{ deal.shop.title }}</h3>
+                                            <p class="mb-15">{{ deal.shop.content }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Recent Posts -->
+                            </div>
+                        </div>
+                    </aside>
+                    <!-- End Blog Sidebar -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Container -->
+
+
+</main>
+<!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
+{% endblock %}

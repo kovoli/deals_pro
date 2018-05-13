@@ -109,78 +109,41 @@
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane ptb-20 active" id="deals">
                                     <section class="section deals-area">
-                                        <div class="row row-masnory row-tb-20">
-                                            <div class="col-sm-12 col-lg-6">
-                                                <div class="deal-single panel">
-                                                    <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="assets/images/deals/deal_01.jpg">
-                                                        <div class="label-discount left-20 top-15">-50%</div>
-                                                        <ul class="deal-actions top-15 right-20">
-                                                            <li class="like-deal">
-                                                                <span>
-                                                    <i class="fa fa-heart"></i>
-                                                </span>
-                                                            </li>
-                                                            <li class="share-btn">
-                                                                <div class="share-tooltip fade">
-                                                                    <a target="_blank" href="#"><i class="fa fa-facebook"></i></a>
-                                                                    <a target="_blank" href="#"><i class="fa fa-twitter"></i></a>
-                                                                    <a target="_blank" href="#"><i class="fa fa-google-plus"></i></a>
-                                                                    <a target="_blank" href="#"><i class="fa fa-pinterest"></i></a>
-                                                                </div>
-                                                                <span><i class="fa fa-share-alt"></i></span>
-                                                            </li>
-                                                            <li>
-                                                                <span>
-                                                    <i class="fa fa-camera"></i>
-                                                </span>
-                                                            </li>
-                                                        </ul>
-                                                        <div class="time-left bottom-15 right-20 font-md-14">
-                                                            <span>
-                                                <i class="ico fa fa-clock-o mr-10"></i>
-                                                <span class="t-uppercase" data-countdown="2019/09/01 01:30:00"></span>
-                                            </span>
-                                                        </div>
-                                                        <div class="deal-store-logo">
-                                                            <img src="assets/images/brands/brand_01.jpg" alt="">
-                                                        </div>
-                                                    </figure>
-                                                    <div class="bg-white pt-20 pl-20 pr-15">
-                                                        <div class="pr-md-10">
-                                                            <div class="rating mb-10">
-                                                                <span class="rating-stars rate-allow" data-rating="5">
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </span>
-                                                                <span class="rating-reviews">
-                                                    ( <span class="rating-count">241</span> rates )
-                                                                </span>
-                                                            </div>
-                                                            <h3 class="deal-title mb-10">
-                                                <a href="deal_single.html">The Crash Bad Instant Folding Twin Bed</a>
-                                            </h3>
-                                                            <ul class="deal-meta list-inline mb-10 color-mid">
-                                                                <li><i class="ico fa fa-map-marker mr-10"></i>United State</li>
-                                                                <li><i class="ico fa fa-shopping-basket mr-10"></i>120 Bought</li>
-                                                            </ul>
-                                                            <p class="text-muted mb-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam numquam nostrum.</p>
-                                                        </div>
-                                                        <div class="deal-price pos-r mb-15">
-                                                            <h3 class="price ptb-5 text-right"><span class="price-sale">$300.00</span>$150.00</h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="row row-masnory row-tb-20 ">
+                                            {% for deal in posts %}
+                            <div class="col-sm-6 col-lg-6">
+                                <div class="deal-single panel">
+                                    <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_grid_image.url }}">
+                                        <div class="label-discount left-20 top-15">-50%</div>
+                                        <div class="deal-store-logo">
+                                            <img src="{{ deal.shop.image_store.url }}" alt="">
+                                        </div>
+                                    </figure>
+                                    <div class="bg-white pt-20 pl-20 pr-15">
+                                        <div class="pr-md-10">
+                                            <h3 class="deal-title mb-10">
+                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name }}</a>
+                                </h3>
+                                            <ul class="deal-meta list-inline mb-10 color-mid">
+                                                <li><i class="ico fa fa-map-marker mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a></li>
+                                                <li><i class="ico fa fa-shopping-basket mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
+                                            </ul>
+                                            <p class="text-muted mb-20">{{ deal.description }}</p>
+                                        </div>
+                                        <div class="deal-price pos-r mb-15">
+                                            <h3 class="price ptb-5 text-right"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
                                         </div>
                                     </section>
                                 </div>
                                 <div role="tabpanel" class="tab-pane ptb-20" id="coupons">
                                     <section class="section coupons-area coupons-area-grid">
                                         <div class="row row-masnory row-tb-20">
-                            {% for coupon in posts %}
+                            {% for coupon in coupons %}
                             <div class="col-xs-12">
                                 <div class="coupon-single panel t-center t-sm-left">
                                     <div class="row row-sm-cell row-tb-0 row-rl-0">

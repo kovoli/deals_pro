@@ -4,11 +4,6 @@ from deals_pro import helpers
 from django.db.models import Count
 
 
-def blog_main_page(request):
-    blog_main_list = Post.objects.all().order_by('-publish')[:3]
-    return render(request, 'index.html', {'blog_main_list': blog_main_list})
-
-
 def blog_index(request, category_slug=None, tag_slug=None):
     post_list = Post.objects.all().order_by('-publish')
     posts = helpers.pg_records(request, post_list, 5)
