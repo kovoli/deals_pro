@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'shop.apps.ShopConfig',
     'imagekit',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

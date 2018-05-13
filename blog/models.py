@@ -6,6 +6,7 @@ from unidecode import unidecode
 from django.urls import reverse
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill, ResizeToCover, Resize, ResizeToFit, SmartResize
+from ckeditor.fields import RichTextField
 
 
 # Не обязательно делать
@@ -69,7 +70,7 @@ class Post(models.Model):
                             unique_for_date='publish')
     author = models.ForeignKey(User, default=User,
                                related_name='blog_posts', on_delete=models.CASCADE)
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

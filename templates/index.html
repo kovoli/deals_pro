@@ -500,7 +500,7 @@
                                     </div>
                                 </header>
                                 <div class="entry-content">
-                                    <p class="entry-summary">{{ post.body|truncatewords:15|linebreaks }}</p>
+                                    <p class="entry-summary">{{ post.body|safe|truncatewords:15 }}</p>
                                 </div>
                                 <footer class="entry-footer text-right">
                                     <a href="{{ post.get_absolute_url }}" class="more-link btn btn-link">Читать дальше <i class="icon fa fa-long-arrow-right"></i></a>

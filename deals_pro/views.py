@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 def main_page_list(request):
-    blog_main_list = Post.objects.all().order_by('-publish')[:3]
+    blog_main_list = Post.objects.all().order_by('-publish')[:6]
     shop_main_list = Store.objects.all().order_by('title')[:10]
     coupon_main_list = Coupon.objects.filter(expired__gt=datetime.now())[:10]
 

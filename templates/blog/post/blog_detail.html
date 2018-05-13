@@ -34,14 +34,14 @@
                 </div>
             </header>
             <div class="entry-content">
-                <p class="mb-20">
-                    {{ post.body|linebreaks }}
-                </p>
+
+                    {{ post.body|safe }}
+
             <!-- .entry-wrapper -->
             <footer class="entry-footer">
                 <div class="blog-post-tags ptb-20">
                     <ul>
-                        <li>Tags :</li>
+                        <li>Теги :</li>
                             {% for tag in post.tags.all %}
                                 <li>
                                     <a href="{{ tag.get_absolute_url }}">{{ tag.name }}</a>

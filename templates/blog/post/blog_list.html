@@ -57,7 +57,7 @@
                                             </header>
 
                                             <div class="entry-content">
-                                                <p class="entry-summary">{{ post.body|truncatewords:30|linebreaks }}</p>
+                                                {{ post.body|safe|truncatewords:15 }}
                                             </div>
                                             <!-- .entry-wrapper -->
 
