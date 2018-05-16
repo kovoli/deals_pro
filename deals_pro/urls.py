@@ -24,7 +24,7 @@ urlpatterns = [
     path('blog/', include('blog.urls', namespace='blog')),
     path('', include('shop.urls', namespace='shop')),
     path('', include('shop.urls', namespace='deal')),
-    path('', views.main_page_list, name='Home')
+    path('', views.main_page_list, name='Home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

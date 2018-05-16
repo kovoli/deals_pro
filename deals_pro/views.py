@@ -1,6 +1,6 @@
 from blog.models import Post
-from shop.models import Store, Coupon, Deal
-from django.shortcuts import render
+from shop.models import Store, Coupon, Deal, Category
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime
 
 
@@ -16,5 +16,4 @@ def main_page_list(request):
                'deals_main_list': deals_main_list}
 
     return render(request, 'index.html', content)
-
 

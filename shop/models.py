@@ -4,14 +4,15 @@ from unidecode import unidecode
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from imagekit.models import ImageSpecField
-from imagekit.processors import Resize, ResizeCanvas, ResizeToCover, ResizeToFill, ResizeToFit, SmartResize
+from imagekit.processors import Resize, ResizeCanvas
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 
 class Store(models.Model):
     title = models.CharField(max_length=100, verbose_name='магазин', unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    content = models.TextField()
+    content = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='store_image/%Y/%m/', blank=True)
     image_store = ImageSpecField(source='image',
                                  processors=[Resize(200, 200)],
@@ -81,7 +82,7 @@ class Coupon(models.Model):
     slug = models.SlugField(unique=True)
     author = models.ForeignKey(User, default=User,
                                related_name='shop_coupons', on_delete=models.CASCADE)
-    body = models.TextField()
+    body = RichTextField(blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)
     coupon_link = models.URLField(max_length=250)
@@ -114,7 +115,7 @@ class Deal(models.Model):
     name = models.CharField(max_length=250, verbose_name='скидка')
     slug = models.SlugField(unique=True)
     author = models.ForeignKey(User, default=User, on_delete=models.CASCADE)
-    description = models.TextField()
+    description = RichTextField(blank=True, null=True)
     vendor = models.CharField(max_length=200)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)

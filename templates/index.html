@@ -5,7 +5,7 @@
 <main id="mainContent" class="main-content">
     <div class="page-container ptb-10">
         <div class="container">
-            <div class="section explain-process-area ptb-30">
+            <div class="section explain-process-area ptb-30" style="padding-bottom: 0px!important;">
                 <div class="row row-rl-10">
                     <div class="col-md-4">
                         <div class="item panel prl-15 ptb-20">
@@ -51,7 +51,7 @@
 
             <section class="section latest-deals-area ptb-30">
                 <header class="panel ptb-15 prl-20 pos-r mb-30">
-                    <h3 class="section-title font-18">Последнии скидки</h3>
+                    <h3 class="section-title font-18">Cкидки</h3>
                     <a href="{% url 'deal:deal_index' %}" class="btn btn-o btn-xs pos-a right-10 pos-tb-center">Посмотреть все</a>
                 </header>
 
@@ -71,10 +71,10 @@
                                     <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:24 }}</a>
                                 </h3>
                                             <ul class="deal-meta list-inline mb-10 color-mid">
-                                                <li><i class="ico fa fa-map-marker mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a></li>
-                                                <li><i class="ico fa fa-shopping-basket mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
+                                                <li><i class="ico fa fa-cart-plus mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a></li>
+                                                <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
                                             </ul>
-                                            <p class="text-muted mb-20">{{ deal.description|truncatechars:140 }}</p>
+                                            <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:140 }}</p>
                                         </div>
                                         <div class="deal-price pos-r mb-15">
                                             <h3 class="price ptb-5 text-right"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
@@ -88,7 +88,7 @@
 
             <section class="section stores-area stores-area-v1 ptb-30">
                 <header class="panel ptb-15 prl-20 pos-r mb-30">
-                    <h3 class="section-title font-18">Популярные магазины</h3>
+                    <h3 class="section-title font-18">Магазины</h3>
                     <a href="{% url 'shop:store_list' %}" class="btn btn-o btn-xs pos-a right-10 pos-tb-center">Все магазины</a>
                 </header>
                 <div class="popular-stores-slider owl-slider" data-loop="true" data-autoplay="true" data-smart-speed="1000" data-autoplay-timeout="10000" data-margin="20" data-items="2" data-xxs-items="2" data-xs-items="2" data-sm-items="3" data-md-items="5" data-lg-items="6">
@@ -97,7 +97,7 @@
                         <a href="{{ store.get_absolute_url }}" class="panel is-block">
                             <div class="embed-responsive embed-responsive-4by3">
                                 <div class="store-logo">
-                                    <img src="{{ store.image_store.url }}" alt="Скидки в магазине {{ store.title }}">
+                                    <img src="{% if store.image_store %}{{ store.image_store.url }}{% endif %}" alt="Скидки в магазине {{ store.title }}">
                                 </div>
                             </div>
                             <h6 class="store-name ptb-10">{{ store.title }}</h6>
@@ -110,7 +110,7 @@
 
             <section class="section latest-news-area blog-area blog-grid blog-3-col ptb-30">
                 <header class="panel ptb-15 prl-20 pos-r mb-30">
-                    <h3 class="section-title font-18">Последние Новости</h3>
+                    <h3 class="section-title font-18">Новости</h3>
                     <a href="{% url 'blog:blog_index' %}" class="btn btn-o btn-xs pos-a right-10 pos-tb-center">Посетить блог</a>
                 </header>
 
@@ -121,7 +121,7 @@
                     <div class="blog-post col-xs-12 col-sm-6 col-md-4">
 
                         <article class="entry panel">
-                            <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ post.image_list_blog.url }}">
+                            <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{% if post.image_list_blog %}{{ post.image_list_blog.url }}{% endif %}">
                                 <div class="entry-date">
                                     <h4>13</h4>
                                     <h6>JUN</h6>

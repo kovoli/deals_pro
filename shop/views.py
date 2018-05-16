@@ -39,9 +39,13 @@ def deal_index(request, category_slug=None):
         posts = helpers.pg_records(request, post_list, 10)
 
     return render(request, 'deals/deals_list.html', {'posts': posts,
-                                                   'category': category,
-                                                   'categories': categories})
+                                                     'category': category,
+                                                     'categories': categories})
+
 
 def deal_detail(request, deal):
     deal = get_object_or_404(Deal, slug=deal)
     return render(request, 'deals/deal_detail.html', {'deal': deal})
+
+
+

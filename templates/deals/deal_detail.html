@@ -16,10 +16,10 @@
                             <div class="deal-deatails panel">
                                 <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_image.url }}"></figure>
                                 <div class="deal-body p-20">
-                                    <h2 class="mb-10">{{ deal.name }}</h2>
+                                    <h2 class="mb-10">{{ deal.name }} со скидкой.</h2>
                                     <h3 class="price ptb-5 text-left"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
                                     <div class="entry-content">
-                                        {{ deal.description }}
+                                        {{ deal.description|safe }}
                                     </div>
                                 </div>
                             </div>
@@ -37,9 +37,8 @@
                                 <div class="widget single-deal-widget panel ptb-30 prl-20">
                                     <div class="widget-body text-center">
                                         <ul class="deal-meta list-inline mb-10 color-mid">
-                                            <li><i class="ico fa fa-globe mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a>
-                                            </li>
-                                            <li><i class="ico fa fa-map-marker mr-10"></i>{{ deal.categoryId.name }}</li>
+                                            <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
+                                            <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
                                         </ul>
                                         <div class="price mb-20">
                                             <h2 class="price"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h2>
@@ -80,7 +79,7 @@
                                     <h3 class="widget-title h-title">О Магазине</h3>
                                     <div class="widget-body t-center">
                                         <figure class="mt-20 pb-10">
-                                            <img src="{{ deal.shop.img_single_store.url }}" alt="Скидки в магазине {{ deal.shop.title }}">
+                                            <a href="{{ deal.shop.get_absolute_url }}" class="color-mid"><img src="{{ deal.shop.img_single_store.url }}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
                                         </figure>
                                         <div class="store-about mb-20">
                                             <h3 class="mb-10">{{ deal.shop.title }}</h3>
