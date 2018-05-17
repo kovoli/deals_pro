@@ -81,15 +81,15 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to='post_image/%Y/%m/', blank=True)
     image_detail_blog = ImageSpecField(source='image',
-                                       processors=[Resize(753, 423)],
+                                       processors=[ResizeToCover(753, 423)],
                                        format='JPEG',
                                        options={'quality': 60})
     image_sidebar_blog = ImageSpecField(source='image',
-                                        processors=[Resize(150, 150)],
+                                        processors=[ResizeToCover(150, 150)],
                                         format='JPEG',
                                         options={'quality': 60})
     image_list_blog = ImageSpecField(source='image',
-                                     processors=[Resize(600, 400)],
+                                     processors=[ResizeToCover(600, 400)],
                                      format='JPEG',
                                      options={'quality': 60})
 

@@ -10,4 +10,5 @@ urlpatterns = [
     path('deals/', views.deal_index, name='deal_index'),
     path('deal/<slug:deal>/', views.deal_detail, name='deal_detail'),
     path('deal/cat/<slug:category_slug>', views.deal_index, name='deals_by_category'),
+    path('search_deals/', views.search_deal, name='search_deal'),
 ]

@@ -22,103 +22,27 @@
         </div>
         <div class="col-xs-12">
             <!-- Recent Posts -->
-{% show_latest_posts 5 %}
+            {% show_latest_posts 5 %}
             <!-- End Recent Posts -->
         </div>
         <div class="col-xs-12">
             <!-- Categories Widget -->
-{% show_categorys %}
+            {% show_categorys %}
             <!-- End Categories Widget -->
         </div>
-
         <div class="col-xs-12">
             <!-- Popular Tags -->
-{% show_tags %}
+            {% show_tags %}
             <!-- End Popular Tags -->
         </div>
-
-
-<div class="col-xs-12">
+        <div class="col-xs-12">
+            <!-- Best Rated Deals -->
+            {% show_last_deals %}
+            <!-- Best Rated Deals -->
+        </div>
+        <div class="col-xs-12">
             <!-- Trending Stores -->
-            <div class="widget trend-store-widget panel pt-20 prl-20">
-                <h3 class="widget-title h-title">Trending Stores</h3>
-                <div class="widget-body ptb-30">
-
-
-                    <div class="trend-store-item media">
-                        <div class="post-thumb media-left">
-                            <a href="#">
-                                <img class="media-object pr-10" width="90" src="assets/images/brands/brand_01.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h5 class="mb-5">
-<a href="store_single_01.html">Amazon</a>
-<span class="rating">
-<span class="rating-stars" data-rating="4">
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-</span>
-</span>
-</h5>
-                            <p class="color-mid">Upto 70% Rewards Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-
-
-                    <div class="trend-store-item media">
-                        <div class="post-thumb media-left">
-                            <a href="#">
-                                <img class="media-object pr-10" width="90" src="assets/images/brands/brand_02.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h5 class="mb-5">
-<a href="store_single_01.html">Ashford</a>
-<span class="rating">
-<span class="rating-stars" data-rating="4">
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-</span>
-</span>
-</h5>
-                            <p class="color-mid">Upto 70% Rewards Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-
-
-                    <div class="trend-store-item media">
-                        <div class="post-thumb media-left">
-                            <a href="#">
-                                <img class="media-object pr-10" width="90" src="assets/images/brands/brand_03.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="media-body">
-                            <h5 class="mb-5">
-<a href="store_single_01.html">DELL</a>
-<span class="rating">
-<span class="rating-stars" data-rating="4">
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-<i class="fa fa-star-o"></i>
-</span>
-</span>
-</h5>
-                            <p class="color-mid">Upto 70% Rewards Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
+            {% trending_stores %}
             <!-- End Trending Stores -->
         </div>
 

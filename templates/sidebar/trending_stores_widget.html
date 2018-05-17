@@ -1,0 +1,20 @@
+<div class="widget trend-store-widget panel pt-20 prl-20">
+<h3 class="widget-title h-title">Популярные магазины</h3>
+<div class="widget-body ptb-30">
+    {% for shop in show_shops %}
+    <div class="trend-store-item media">
+        <div class="post-thumb media-left">
+            <a href="{{ shop.get_absolute_url }}">
+                <img class="media-object pr-10" width="90" src="{% if shop.image_store %}{{ shop.image_store.url }}{% endif %}" alt="">
+            </a>
+        </div>
+        <div class="media-body">
+            <h5 class="mb-5">
+                    <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
+            </h5>
+            <p class="color-mid">{{ shop.content|safe|truncatechars:45 }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>

@@ -16,8 +16,15 @@ def store_detail(request, store):
     object_lists = Coupon.objects.filter(expired__gt=datetime.now())
     coupons = object_lists.filter(shop_id=shop)
     posts = Deal.objects.all().filter(shop_id=shop)
+    count_sum_deals = Deal.objects.filter(shop_id=shop).count()
+    deals_count = count_sum_deals
+    count_sum_coupons = coupons.count()
 
-    return render(request, 'shop/store_detail.html', {'shop': shop, 'coupons': coupons, 'posts': posts})
+    return render(request, 'shop/store_detail.html', {'shop': shop,
+                                                      'coupons': coupons,
+                                                      'posts': posts,
+                                                      'deals_count': deals_count,
+                                                      'count_sum_coupons': count_sum_coupons})
 
 
 def coupon_list(request):
@@ -48,4 +55,10 @@ def deal_detail(request, deal):
     return render(request, 'deals/deal_detail.html', {'deal': deal})
 
 
+def search_deal(request):
+    if 'x' in request.GET:
+        x = request.GET['x']
+        post_list = Deal.objects.filter(name__icontains=x)
+        posts = helpers.pg_records(request, post_list, 10)
 
+        return render(request, 'deals/deals_list.html', {'posts': posts, 'x': x})

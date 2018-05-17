@@ -2,9 +2,9 @@ from django import template
 
 register = template.Library()
 
-from ..models import Post, Category, Tag
+from blog.models import Post, Category, Tag
+from shop.models import Deal, Store
 from django.db.models import Count
-
 
 @register.inclusion_tag('blog/sidebar/latest_post.html')
 def show_latest_posts(count=5):
@@ -22,3 +22,19 @@ def show_categorys():
 def show_tags():
     tags = Tag.objects.all()
     return {'tags': tags}
+
+
+@register.inclusion_tag('sidebar/lasts_deals_widget.html')
+def show_last_deals(count=5):
+    show_deals = Deal.objects.all()[:count]
+    return {'show_deals': show_deals}
+
+
+@register.inclusion_tag('sidebar/trending_stores_widget.html')
+def trending_stores(count=5):
+    show_shops = Store.objects.all()[:count]
+    return {'show_shops': show_shops}
+
+
+
+

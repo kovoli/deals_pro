@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load shop_tags %}
 {% block title %}
     {{ post.title|capfirst }} - {{ block.super }}
 {% endblock %}
@@ -19,7 +20,7 @@
                                     <h2 class="mb-10">{{ deal.name }} со скидкой.</h2>
                                     <h3 class="price ptb-5 text-left"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
                                     <div class="entry-content">
-                                        {{ deal.description|safe }}
+                                        {{ deal.description|safe}}
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +80,7 @@
                                     <h3 class="widget-title h-title">О Магазине</h3>
                                     <div class="widget-body t-center">
                                         <figure class="mt-20 pb-10">
-                                            <a href="{{ deal.shop.get_absolute_url }}" class="color-mid"><img src="{{ deal.shop.img_single_store.url }}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
+                                            <a href="{{ deal.shop.get_absolute_url }}" class="color-mid"><img src="{{ deal.shop.image_store.url }}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
                                         </figure>
                                         <div class="store-about mb-20">
                                             <h3 class="mb-10">{{ deal.shop.title }}</h3>
@@ -88,6 +89,16 @@
                                     </div>
                                 </div>
                                 <!-- End Recent Posts -->
+                            </div>
+                            <div class="col-xs-12">
+                                <!-- Recent Posts -->
+                                {% show_deal_category %}
+                                <!-- End Recent Posts -->
+                            </div>
+                            <div class="col-xs-12">
+                                <!-- Best Rated Deals -->
+                                {% show_last_deals %}
+                                <!-- Best Rated Deals -->
                             </div>
                         </div>
                     </aside>

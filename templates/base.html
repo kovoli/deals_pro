@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <!--[if lt IE 9 ]> <html lang="ru" dir="ltr" class="no-js ie-old"> <![endif]-->
 <!--[if IE 9 ]> <html lang="ru" dir="ltr" class="no-js ie9"> <![endif]-->
@@ -119,9 +120,9 @@
                         <div class="header-search col-md-9">
                             <div class="row row-tb-10 ">
                                 <div class="col-sm-8">
-                                    <form class="search-form">
+                                    <form class="search-form" method="get" action="{% url 'shop:search_deal' %}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control input-lg search-input" placeholder="Начать поиск ..." required="required">
+                                            <input type="text" name="x" class="form-control input-lg search-input" placeholder="Начать поиск ..." required="required">
                                             <div class="input-group-btn">
                                                 <div class="input-group">
                                                     <div class="input-group-btn">
