@@ -17,3 +17,5 @@ def main_page_list(request):
 
     return render(request, 'index.html', content)
 
+
+

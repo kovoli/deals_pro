@@ -25,11 +25,11 @@ SECRET_KEY = '(dop^euu^*)b1bos#8@1ry_%v7)tu7rno*0wsa$+0d#xw6+w&6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
+SITE_ID = 1
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'blog.apps.BlogConfig',
     'shop.apps.ShopConfig',
     'imagekit',
@@ -108,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru-Ru'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'Europe/Moscow'
 

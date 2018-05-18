@@ -48,3 +48,4 @@ def blog_detail(request, post):
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-publish')[:3]
 
     return render(request, 'blog/post/blog_detail.html', {'post': post, 'similar_posts': similar_posts})
+

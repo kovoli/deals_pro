@@ -17,15 +17,29 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from . import views
+from . import views as views_home
+from django.contrib.sitemaps import views
+from blog.sitemaps import PostSitemap
+from shop.sitemaps import DealSitemap, StoreSitemap
+
+sitemaps = {
+    'posts': PostSitemap,
+    'deals': DealSitemap,
+    'shops': StoreSitemap
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls', namespace='blog')),
     path('', include('shop.urls', namespace='shop')),
     path('', include('shop.urls', namespace='deal')),
-    path('', views.main_page_list, name='Home'),
+    path('', views_home.main_page_list, name='Home'),
+    path('sitemap.xml', views.index, {'sitemaps': sitemaps}),
+    path('sitemap-<section>.xml', views.sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

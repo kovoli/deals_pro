@@ -158,7 +158,7 @@
                         {% with request.resolver_match.url_name as url_name %}
                             <ul class="nav-menu">
                                 <li class="{% if  url_name == 'Home' %}active{% endif %}">
-                                    <a href="{% url 'Home' %}">Home</a>
+                                    <a href="{% url 'Home' %}">Главная</a>
                                 </li>
                                 <li class="{% if  url_name == 'deal_index' %}active{% endif %}">
                                     <a href="{% url 'deal:deal_index' %}">Скидки</a>

@@ -4,12 +4,12 @@
         {% for deal in show_deals %}
         <div class="media">
             <div class="media-left">
-                <a href="#">
+                <a href="{{ deal.get_absolute_url }}">
                     <img class="media-object" src="{{ deal.deals_image.url }}" alt="Thumb" width="80">
                 </a>
             </div>
             <div class="media-body">
-                <h6 class="mb-5"><a href="#">{{ deal.name }}</a></h6>
+                <h6 class="mb-5"><a href="{{ deal.get_absolute_url }}">{{ deal.name }}</a></h6>
                 <h4 class="price font-16">{{ deal.price }}<i class="ico fa fa-ruble"></i> <span class="price-sale color-muted">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span></h4>
             </div>
         </div>

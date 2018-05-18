@@ -12,6 +12,7 @@ from ckeditor.fields import RichTextField
 class Store(models.Model):
     title = models.CharField(max_length=100, verbose_name='магазин', unique=True)
     slug = models.SlugField(max_length=100, unique=True)
+    publish = models.DateTimeField(default=timezone.now)
     content = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='store_image/%Y/%m/', blank=True)
     image_store = ImageSpecField(source='image',
@@ -115,6 +116,7 @@ class Deal(models.Model):
     name = models.CharField(max_length=250, verbose_name='скидка')
     slug = models.SlugField(unique=True)
     author = models.ForeignKey(User, default=User, on_delete=models.CASCADE)
+    publish = models.DateTimeField(default=timezone.now)
     description = RichTextField(blank=True, null=True)
     vendor = models.CharField(max_length=200)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)

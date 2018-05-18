@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
+<main id="mainContent" class="main-content">
+    <div class="page-container pt-40 pb-60">
+        <div class="container">
+            <section class="error-page-area">
+                <div class="container">
+                    <div class="error-page-wrapper t-center">
+                        <div class="error-page-header">
+                            <span class="color-blue">4</span>
+                            <span class="color-green">0</span>
+                            <span class="color-blue">4</span>
+                        </div>
+                        <div class="error-page-footer">
+                            <h5 class="color-mid mb-5">Ой!</h5>
+                            <h2 class="t-uppercase m-10 color-green">Виноват!</h2>
+                            <p class="color-muted mb-30 font-15">
+                                Страница, которую вы ищете, не найдена!
+                            </p>
+                        </div>
+                        <a href="{% url 'Home' %}" class="btn btn-rounded">Вернуться на главную страницу</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
+<!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
+{% endblock %}
