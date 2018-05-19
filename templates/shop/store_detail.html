@@ -82,15 +82,14 @@
                                             <div class="col-sm-6 col-lg-6">
                                                 <div class="deal-single panel">
                                                     <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_grid_image.url }}">
-                                                        <div class="label-discount left-20 top-15">-50%</div>
                                                         <div class="deal-store-logo">
-                                                            <img src="{{ deal.shop.image_store.url }}" alt="">
+                                                            <img src="{{ deal.shop.image_store.url }}" alt="Скидка на {{ deal.name }}">
                                                         </div>
                                                     </figure>
                                                     <div class="bg-white pt-20 pl-20 pr-15">
                                                         <div class="pr-md-10">
                                                             <h3 class="deal-title mb-10">
-                                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name }}</a>
+                                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:24 }}</a>
                                                 </h3>
                                                             <ul class="deal-meta list-inline mb-10 color-mid">
                                                                 <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
@@ -129,7 +128,7 @@
                                             <div class="panel-body">
                                                 <ul class="deal-meta list-inline mb-10">
                                                     <li class="color-muted"><i class="ico fa fa-cart-plus mr-10" ></i>{{ coupon.shop.title }}</li>
-                                                    <li class="color-blue" data-toggle="tooltip" data-placement="bottom" title="{{ coupon.body }}" ><i class="ico fa fa-info mr-10"></i>Условие</li>
+                                                    <li class="color-blue" data-toggle="tooltip" data-placement="bottom" title="{{ coupon.body|safe }}" ><i class="ico fa fa-info mr-10"></i>Условие</li>
                                                 </ul>
                                                 <h5 class="deal-title mb-10">{{ coupon.title }}</h5>
                                                 <p class="mb-15 color-muted font-12"><i class="lnr lnr-clock mr-10"></i>Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
@@ -151,9 +150,9 @@
                                                 </button>
                                                 <div class="row row-v-10">
                                                     <div class="col-md-10 col-md-offset-1">
-                                                        <img src="{{ coupon.shop.img_single_store.url }}" alt="">
+                                                        <img src="{{ coupon.shop.img_single_store.url }}" alt="{{ coupon.title }}">
                                                         <h3 class="mb-20">{{ coupon.title }}</h3>
-                                                        <p class="color-mid">{{ coupon.body }}</p>
+                                                        <p class="color-mid">{{ coupon.body|safe }}</p>
                                                     </div>
                                                     <div class="col-md-10 col-md-offset-1">
                                                         <a href="{{ coupon.coupon_link }}" class="btn btn-link">Посетить магазин</a>
@@ -174,10 +173,8 @@
                         </div>
 
                                         <!-- Page Pagination -->
-                                    {% if posts.has_other_pages %}
                                         {% include 'pagination.html' %}
                                         <!-- End Page Pagination -->
-                                    {% endif %}
                                     </section>
                                 </div>
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
 from .models import Store, Coupon, Deal, Category
 from deals_pro import helpers
-from _datetime import datetime
+from watson import search as watson
 
 
 def store_list(request):
@@ -13,7 +14,7 @@ def store_list(request):
 
 def store_detail(request, store):
     shop = get_object_or_404(Store, slug=store)
-    object_lists = Coupon.objects.filter(expired__gt=datetime.now())
+    object_lists = Coupon.objects.filter(expired__gt=timezone.now())
     coupons = object_lists.filter(shop_id=shop)
     posts = Deal.objects.all().filter(shop_id=shop)
     count_sum_deals = Deal.objects.filter(shop_id=shop).count()
@@ -28,7 +29,7 @@ def store_detail(request, store):
 
 
 def coupon_list(request):
-    posts = Coupon.objects.filter(expired__gt=datetime.now())
+    posts = Coupon.objects.filter(expired__gt=timezone.now())
 
     return render(request, 'coupon/coupons_list.html', {'posts': posts})
 
@@ -58,7 +59,7 @@ def deal_detail(request, deal):
 def search_deal(request):
     if 'x' in request.GET:
         x = request.GET['x']
-        post_list = Deal.objects.filter(name__icontains=x)
-        posts = helpers.pg_records(request, post_list, 10)
+        search_results = watson.filter(Deal, x)
+        posts = helpers.pg_records(request, search_results, 10)
 
-        return render(request, 'deals/deals_list.html', {'posts': posts, 'x': x})
+        return render(request, 'deals/search_deals.html', {'posts': posts, 'x': x})

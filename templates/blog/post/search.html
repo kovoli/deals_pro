@@ -16,19 +16,12 @@
 
                 <!-- Blog Area -->
                 <section class="blog-area blog-classic">
-                {% if category %}
+
                     <div class="row row-tb-20">
                         <div class="blog-post col-xs-12">
-                            <h2>Все записи из категории - {{ category.name }}</h2>
+                            <h2>Результаты поиска по запросу - {{ q }}</h2>
                         </div>
                     </div>
-                {% elif tag %}
-                    <div class="row row-tb-20">
-                        <div class="blog-post col-xs-12">
-                            <h2>Все записи с тэгом - {{ tag.name }}</h2>
-                        </div>
-                    </div>
-                {% endif %}
 
                     <div class="row row-tb-20">
                         {% for post in posts %}
@@ -38,10 +31,6 @@
                                 <div class="row row-rl-0 row-tb-0 row-md-cell">
                                     <div class="col-xs-12 col-md-6 col-lg-5">
                                         <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9 col-absolute-cell" data-bg-img="{% if post.image %}{{ post.image_list_blog.url }}{% endif %}">
-                                            <div class="entry-date">
-                                                <h4>{{ post.publish|date:"d" }}</h4>
-                                                <h6>{{ post.publish|date:"M" }}</h6>
-                                            </div>
                                         </figure>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-7 prl-15 prl-md-20 pt-20 pt-md-30 pb-15">
@@ -52,14 +41,17 @@
                                     </h3>
                                                 <div class="entry-meta mb-10">
                                                     <ul class="tag-info list-inline">
-                                                        <li> <i class="icon fa fa-user"></i> Автор : {{ post.author }}</li>
-                                                        <li><i class="icon fa fa-comments"></i> 14 Comments </li>
+                                                         <li> <i class="icon fa fa-user"></i>{{ post.author }}</li>
+                                                        <li><i class="icon fa fa-calendar"></i>{{ post.publish|date:"d.m.Y" }}</li>
+                                                        <li><i class="icon fa fa-tag"></i>
+                                                            <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </header>
 
                                             <div class="entry-content">
-                                                <p class="entry-summary">{{ post.body|truncatewords:30|linebreaks }}</p>
+                                                <p class="entry-summary">{{ post.body|safe|truncatewords:30 }}</p>
                                             </div>
                                             <!-- .entry-wrapper -->
 

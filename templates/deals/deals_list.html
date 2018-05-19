@@ -27,7 +27,7 @@
                                 <div class="deal-single panel">
                                     <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_grid_image.url }}">
                                         <div class="deal-store-logo">
-                                            <img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидка на {{ deal.name }} в магазине {{ deal.shop.name }}">
+                                            <a href="{{ deal.shop.get_absolute_url }}"><img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
                                         </div>
                                     </figure>
                                     <div class="bg-white pt-20 pl-20 pr-15">
@@ -36,7 +36,7 @@
                                     <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:22 }}</a>
                                 </h3>
                                             <ul class="deal-meta list-inline mb-10 color-mid">
-                                                <li><i class="ico fa fa-cart-plus mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a></li>
+                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
                                                 <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
                                             </ul>
                                             <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:140 }}</p>

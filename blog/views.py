@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Category, Tag
 from deals_pro import helpers
 from django.db.models import Count
+from watson import search as watson
 
 
 def blog_index(request, category_slug=None, tag_slug=None):
@@ -33,8 +34,8 @@ def blog_index(request, category_slug=None, tag_slug=None):
 def search(request):
     if 'q' in request.GET:
         q = request.GET['q']
-        post_list = Post.objects.filter(title__icontains=q)
-        posts = helpers.pg_records(request, post_list, 10)
+        search_results = watson.filter(Post, q)
+        posts = helpers.pg_records(request, search_results, 10)
 
         return render(request, 'blog/post/search.html', {'posts': posts, 'q': q})
 

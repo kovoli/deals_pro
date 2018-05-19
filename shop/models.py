@@ -83,7 +83,7 @@ class Coupon(models.Model):
     slug = models.SlugField(unique=True)
     author = models.ForeignKey(User, default=User,
                                related_name='shop_coupons', on_delete=models.CASCADE)
-    body = RichTextField(blank=True, null=True)
+    body = models.TextField(blank=True, null=True)
     publish = models.DateTimeField(default=timezone.now)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)
     coupon_link = models.URLField(max_length=250)

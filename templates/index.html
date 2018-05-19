@@ -15,7 +15,7 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <h5 class="mb-10 pt-5">Скидки и купоны</h5>
-                                    <p class="color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure aspernatur.</p>
+                                    <p class="color-mid">В одном месте, отсортированные по интернет-магазинам.</p>
                                 </div>
                             </div>
                         </div>
@@ -27,8 +27,8 @@
                                     <img class="pr-10" src="{% static 'images/icons/online-shop-6.png' %}" alt="">
                                 </div>
                                 <div class="col-xs-8">
-                                    <h5 class="mb-10 pt-5">Лучшии предложения</h5>
-                                    <p class="color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure aspernatur.</p>
+                                    <h5 class="mb-10 pt-5">Лучшие предложения</h5>
+                                    <p class="color-mid">Находите лучшие предложения от ведущих интернет-магазинов.</p>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-xs-8">
                                     <h5 class="mb-10 pt-5">Экономьте деньги</h5>
-                                    <p class="color-mid">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure aspernatur.</p>
+                                    <p class="color-mid">Зачем покупать дороже если можно купить товар со скидкой.</p>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                         <div class="deal-single panel">
                                     <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{% if deal.deals_grid_image %}{{ deal.deals_grid_image.url }}{% endif %}">
                                         <div class="deal-store-logo">
-                                            <img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="">
+                                            <a href="{{ deal.shop.get_absolute_url }}"><img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
                                         </div>
                                     </figure>
                                     <div class="bg-white pt-20 pl-20 pr-15">
@@ -70,7 +70,7 @@
                                     <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:24 }}</a>
                                 </h3>
                                             <ul class="deal-meta list-inline mb-10 color-mid">
-                                                <li><i class="ico fa fa-cart-plus mr-10"></i><a href="{{ deal.shop.get_absolute_url }}" class="color-mid">{{ deal.shop.title }}</a></li>
+                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
                                                 <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
                                             </ul>
                                             <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:140 }}</p>

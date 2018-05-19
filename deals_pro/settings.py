@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'imagekit',
     'ckeditor',
+    'watson',
 ]
 
 MIDDLEWARE = [
