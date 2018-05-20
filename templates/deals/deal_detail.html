@@ -3,7 +3,9 @@
 {% block title %}
     {{ post.title|capfirst }} - {{ block.super }}
 {% endblock %}
-
+{% block description %}
+    {{ deal.description|safe|truncatechars:325|striptags }}
+{% endblock %}
 {% block content %}
 <!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
 <main id="mainContent" class="main-content">

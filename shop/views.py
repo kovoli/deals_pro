@@ -16,7 +16,8 @@ def store_detail(request, store):
     shop = get_object_or_404(Store, slug=store)
     object_lists = Coupon.objects.filter(expired__gt=timezone.now())
     coupons = object_lists.filter(shop_id=shop)
-    posts = Deal.objects.all().filter(shop_id=shop)
+    deal_list = Deal.objects.all().filter(shop_id=shop)
+    posts = helpers.pg_records(request, deal_list, 12)
     count_sum_deals = Deal.objects.filter(shop_id=shop).count()
     deals_count = count_sum_deals
     count_sum_coupons = coupons.count()
@@ -36,7 +37,7 @@ def coupon_list(request):
 
 def deal_index(request, category_slug=None):
     deals = Deal.objects.all()
-    posts = helpers.pg_records(request, deals, 5)
+    posts = helpers.pg_records(request, deals, 12)
 
     category = None
     categories = Category.objects.all()
@@ -44,7 +45,7 @@ def deal_index(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         post_list = deals.filter(categoryId=category)
-        posts = helpers.pg_records(request, post_list, 10)
+        posts = helpers.pg_records(request, post_list, 12)
 
     return render(request, 'deals/deals_list.html', {'posts': posts,
                                                      'category': category,

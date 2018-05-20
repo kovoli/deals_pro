@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'imagekit',
     'ckeditor',
     'watson',
+    'meta',
 ]
 
 MIDDLEWARE = [

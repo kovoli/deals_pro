@@ -2,6 +2,9 @@
 {% block title %}
     {{ shop.title|capfirst }} - {{ block.super }}
 {% endblock %}
+{% block description %}
+    {{ shop.content|safe|truncatechars:325|striptags }}
+{% endblock %}
 {% block content %}
 <!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
 <main id="mainContent" class="main-content">
@@ -95,7 +98,7 @@
                                                                 <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
                                                                 <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
                                                             </ul>
-                                                            <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:155}}</p>
+                                                            <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:155|striptags}}</p>
                                                         </div>
                                                         <div class="deal-price pos-r mb-15">
                                                             <h3 class="price ptb-5 text-right"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
@@ -106,6 +109,9 @@
                                             {% endfor %}
                                         </div>
                                     </section>
+                                <!-- Page Pagination -->
+                                        {% include 'pagination.html' %}
+                                        <!-- End Page Pagination -->
                                 </div>
                                 <div role="tabpanel" class="tab-pane ptb-20" id="coupons">
                                     <section class="section coupons-area coupons-area-grid">
@@ -172,9 +178,7 @@
                         {% endfor %}
                         </div>
 
-                                        <!-- Page Pagination -->
-                                        {% include 'pagination.html' %}
-                                        <!-- End Page Pagination -->
+
                                     </section>
                                 </div>
 
@@ -188,8 +192,6 @@
         </div>
     </div>
     <!-- End Page Container -->
-
-
 </main>
 <!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
 {% endblock %}

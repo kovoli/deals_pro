@@ -77,7 +77,7 @@ class Post(models.Model):
     status = models.CharField(max_length=10,
                               choices=STATUS_CHOICES,
                               default='published')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to='post_image/%Y/%m/', blank=True)
     image_detail_blog = ImageSpecField(source='image',
@@ -112,3 +112,5 @@ class Post(models.Model):
         ordering = ('-publish',)
         verbose_name = "Запись"
         verbose_name_plural = 'Записи'
+
+

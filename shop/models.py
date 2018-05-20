@@ -126,13 +126,13 @@ class Deal(models.Model):
     categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
     original_picture = models.ImageField(upload_to='deals_images/%Y/%m', blank=True)
     deals_image = ImageSpecField(source='original_picture',
-                                  processors=[ResizeCanvas(753, 700)],
+                                  processors=[Resize(753, 700)],
                                   format='JPEG',
                                   options={'quality': 70})
     deals_grid_image = ImageSpecField(source='original_picture',
-                                 processors=[ResizeCanvas(753, 700)],
+                                 processors=[Resize(262, 262)],
                                  format='JPEG',
-                                 options={'quality': 50})
+                                 options={'quality': 70})
 
     def save(self, *args, **kwargs):
         if not self.slug:

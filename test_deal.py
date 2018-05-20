@@ -12,19 +12,20 @@ import xml.etree.ElementTree as ET
 from django.core.files.base import ContentFile
 from io import BytesIO
 from urllib.request import urlopen
-
-tree = ET.parse('003.xml')
+import ssl
+import re
+ssl._create_default_https_context = ssl._create_unverified_context
+tree = ET.parse('test.xml')
 
 user = User.objects.get(username='kovoli')
 root = tree.getroot()
-
 
 
 def populate_deals():
     for offer in root.findall('.//offer'):
         try:
             description = offer.find('description').text
-            if description == None:
+            if description == None and len(description) < 150:
                 continue
             oldprice = offer.find('oldprice').text
             if oldprice == None:
@@ -33,8 +34,11 @@ def populate_deals():
             vendor = offer.find('vendor').text
             price = offer.find('price').text
             url = offer.find('url').text
+            regex = r"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|\:)\s"
+            subst = "</br>"
+            description = re.sub(regex, subst, description, 0, re.MULTILINE)
             original_picture = offer.find('original_picture').text
-            input_file = BytesIO(urlopen(original_picture).read())
+            input_file = BytesIO(urlopen(original_picture, ).read())
             # categoryId = offer.find('categoryId').text
             deal = Deal.objects.create(name=name, vendor=vendor,
                                        price=price, old_price=oldprice,
@@ -42,8 +46,8 @@ def populate_deals():
             deal.original_picture.save("скидка на" + name + ".jpg", ContentFile(input_file.getvalue()), save=False)
             deal.save()
             print('Получилось')
-        except:
-            print('Не получилось')
+        except Exception as a:
+            print(a)
     print('Finish!')
 
 

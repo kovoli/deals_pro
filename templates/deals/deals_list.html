@@ -23,8 +23,11 @@
                         <!-- End Page Control -->
                         <div class="row row-masnory row-tb-20">
                             {% for deal in posts %}
-                            <div class="col-sm-6">
-                                <div class="deal-single panel">
+                            <div class="col-sm-4 col-lg-4 col-xs-6">
+                                <div class="deal-single panel" style="min-height: 400px">
+                                <div class="deal-price pos-r" style="background-color: #324554">
+                                    <h4 class="price ptb-5 text-center"><span class="price-sale" style="font-size: 15px">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h4>
+                                </div>
                                     <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_grid_image.url }}">
                                         <div class="deal-store-logo">
                                             <a href="{{ deal.shop.get_absolute_url }}"><img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
@@ -32,17 +35,14 @@
                                     </figure>
                                     <div class="bg-white pt-20 pl-20 pr-15">
                                         <div class="pr-md-10">
-                                            <h3 class="deal-title mb-10">
-                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:22 }}</a>
+                                            <h3 class="deal-title mb-10 text-left" style="font-size: 16px">
+                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:26 }}</a>
                                 </h3>
                                             <ul class="deal-meta list-inline mb-10 color-mid">
-                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
+                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li></br>
                                                 <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
                                             </ul>
-                                            <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:140 }}</p>
-                                        </div>
-                                        <div class="deal-price pos-r mb-15">
-                                            <h3 class="price ptb-5 text-right"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
+                                            {% comment <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:0 }}</p> %} {% endcomment %}
                                         </div>
                                     </div>
                                 </div>

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+
 {% block title %}
     {{ post.title|capfirst }} - {{ block.super }}
+{% endblock %}
+{% block description %}
+    {{ post.body|safe|truncatechars:325|striptags }}
 {% endblock %}
 
 {% block content %}

@@ -307,29 +307,7 @@
     /*-------------------------------------
      Flexslider
     -------------------------------------*/
-    var flexslider = function() {
 
-        $('#product_slider_nav').flexslider({
-            animation: "slide",
-            controlNav: false,
-            animationLoop: false,
-            slideshow: false,
-            itemWidth: 150,
-            asNavFor: '#product_slider'
-        });
-
-        $('#product_slider').flexslider({
-            animation: "slide",
-            controlNav: false,
-            animationLoop: false,
-            slideshow: false,
-            sync: "#product_slider_nav"
-        });
-
-        $('#header-deals-slider').flexslider({
-            controlNav: false
-        });
-    };
 
     /*-------------------------------------
      Stars Rating functions
@@ -436,7 +414,6 @@
         $(window).on('load', function() {
             preloader();
             navbar_resize_load();
-            flexslider();
         }); 
 
     /* ================================
