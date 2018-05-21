@@ -88,6 +88,16 @@ DATABASES = {
     }
 }
 
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'kovoli$<skidkaweb>',
+        'USER': 'kovoli',
+        'PASSWORD': 'Blagodat1985!',
+        'HOST': 'kovoli.mysql.pythonanywhere-services.com',
+    }
+}"""
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators

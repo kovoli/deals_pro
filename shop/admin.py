@@ -29,7 +29,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 class DealAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'old_price', 'categoryId')
+    list_display = ('name', 'price', 'old_price', 'categoryId', 'param')
     search_fields = ('name',)
     readonly_fields = ('slug',)
     list_editable = ['price', 'old_price', 'categoryId']

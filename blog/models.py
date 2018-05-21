@@ -89,7 +89,7 @@ class Post(models.Model):
                                         format='JPEG',
                                         options={'quality': 60})
     image_list_blog = ImageSpecField(source='image',
-                                     processors=[ResizeToCover(600, 400)],
+                                     processors=[ResizeToCover(400, 400)],
                                      format='JPEG',
                                      options={'quality': 60})
 

@@ -118,6 +118,7 @@ class Deal(models.Model):
     author = models.ForeignKey(User, default=User, on_delete=models.CASCADE)
     publish = models.DateTimeField(default=timezone.now)
     description = RichTextField(blank=True, null=True)
+    param = RichTextField(blank=True, null=True)
     vendor = models.CharField(max_length=200)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
