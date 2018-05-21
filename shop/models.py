@@ -126,7 +126,7 @@ class Deal(models.Model):
     categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
     original_picture = models.ImageField(upload_to='deals_images/%Y/%m', blank=True)
     deals_image = ImageSpecField(source='original_picture',
-                                  processors=[Resize(753, 700)],
+                                  processors=[Resize(753, 753)],
                                   format='JPEG',
                                   options={'quality': 70})
     deals_grid_image = ImageSpecField(source='original_picture',

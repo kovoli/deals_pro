@@ -82,28 +82,32 @@
                                     <section class="section deals-area">
                                         <div class="row row-masnory row-tb-20 ">
                                             {% for deal in posts %}
-                                            <div class="col-sm-6 col-lg-6">
+                                            <div class="col-sm-6 col-lg-4">
                                                 <div class="deal-single panel">
+                                                    <div class="deal-price pos-r " style="background-color: #324554">
+                                                        <h4 class="price ptb-5 text-center"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span><br>{{ deal.price }} <i class="ico fa fa-ruble"></i></h4>
+                                                    </div>
                                                     <figure class="deal-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_grid_image.url }}">
                                                         <div class="deal-store-logo">
                                                             <img src="{{ deal.shop.image_store.url }}" alt="Скидка на {{ deal.name }}">
                                                         </div>
                                                     </figure>
-                                                    <div class="bg-white pt-20 pl-20 pr-15">
+                                                    <div class="bg-white pt-15 pl-15 pr-15">
                                                         <div class="pr-md-10">
-                                                            <h3 class="deal-title mb-10">
-                                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:24 }}</a>
+                                                            <h3 class="deal-title mb-10" style="height: 70px">
+                                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:30 }}</a>
                                                 </h3>
                                                             <ul class="deal-meta list-inline mb-10 color-mid">
-                                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
                                                                 <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
                                                             </ul>
-                                                            <p class="text-muted mb-20">{{ deal.description|safe|truncatechars:155|striptags}}</p>
-                                                        </div>
-                                                        <div class="deal-price pos-r mb-15">
-                                                            <h3 class="price ptb-5 text-right"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
+
                                                         </div>
                                                     </div>
+                                                    <div class="buy-now mb-0">
+                                            <a href="{{ deal.url }}" target="_blank" class="btn btn-block btn-lg">
+                                                <i class="fa fa-shopping-cart font-16 mr-10"></i> В магазин
+                                            </a>
+                                        </div>
                                                 </div>
                                             </div>
                                             {% endfor %}

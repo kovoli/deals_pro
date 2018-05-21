@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load shop_tags %}
 {% block title %}
-    {{ post.title|capfirst }} - {{ block.super }}
+    {{ deal.name|capfirst }} - {{ block.super }}
 {% endblock %}
 {% block description %}
     {{ deal.description|safe|truncatechars:325|striptags }}
@@ -20,7 +20,7 @@
                                 <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_image.url }}"></figure>
                                 <div class="deal-body p-20">
                                     <h2 class="mb-10">{{ deal.name }} со скидкой.</h2>
-                                    <h3 class="price ptb-5 text-left"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
+                                    <h4 style="font-weight: bold">Описание: </h4>
                                     <div class="entry-content">
                                         {{ deal.description|safe}}
                                     </div>
@@ -28,7 +28,9 @@
                             </div>
                         </div>
                         <div class="col-xs-12">
-
+                        <div data-widget-id="F2VvKCe4" class="smw3"></div>
+<noscript><a href="//socialmart.ru" title="SocialMart" target="_blank">Виджет от SocialMart</a></noscript>
+<script async type="text/javascript" charset="UTF-8" src="//widget.socialmart.ru/init.php?render=js&wid=F2VvKCe4"></script>
                         </div>
                     </div>
                 </div>
@@ -44,11 +46,11 @@
                                             <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
                                         </ul>
                                         <div class="price mb-20">
-                                            <h2 class="price"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span>{{ deal.price }} <i class="ico fa fa-ruble"></i></h2>
+                                            <h2 class="price"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span> {{ deal.price }} <i class="ico fa fa-ruble"></i></h2>
                                         </div>
                                         <div class="buy-now mb-40">
                                             <a href="{{ deal.url }}" target="_blank" class="btn btn-block btn-lg">
-                                                <i class="fa fa-shopping-cart font-16 mr-10"></i> Приобрести
+                                                <i class="fa fa-shopping-cart font-16 mr-10"></i> В магазин
                                             </a>
                                         </div>
                                         <div class="time-left mb-30">

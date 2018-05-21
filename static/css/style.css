@@ -1028,9 +1028,8 @@
 }
 .price-sale {
   color: #d84523;
-  font-size: 85%;
+  font-size: 90%;
   text-decoration: line-through;
-  margin-right: 1em;
 }
 .deal-thumbnail:before {
   content: "";
