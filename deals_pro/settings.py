@@ -88,15 +88,16 @@ DATABASES = {
     }
 }
 
-"""DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'skidkaweb',
-        'USER': 'root',ä
-        'PASSWORD': '',
-        'HOST': '127.0.0.1:3306',
+        'USER': 'kovoli',
+        'PASSWORD': 'Blagodat1985!',
+        'HOST': 'localhost',
+        'PORT': '',
     }
-}"""
+}'''
 
 
 
