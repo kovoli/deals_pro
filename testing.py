@@ -13,7 +13,7 @@ user = User.objects.get(username='kovoli')
 
 
 def populate():
-    for i in range(1, 1000):
+    for i in range(1, 20):
         post = Post.objects.create(title='Статья ' + str(i), body='Post body. ' * 15 + str(i), author=user, category_id=1)
         post.save()
 

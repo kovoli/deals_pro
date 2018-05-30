@@ -22,7 +22,7 @@
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- PAGE TITLE                                -->
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
-    <title>Скидкавеб {% block title %}лучшие скидки и купоны{% endblock %}</title>
+    <title>{% block title %}Скидкавеб лучшие скидки и купоны{% endblock %}</title>
 
     <!-- ––––––––––––––––––––––––––––––––––––––––– -->
     <!-- SEO METAS                                 -->
@@ -120,7 +120,7 @@
                                 <div class="col-sm-8">
                                     <form class="search-form" method="get" action="{% url 'shop:search_deal' %}">
                                         <div class="input-group">
-                                            <input type="text" name="x" class="form-control input-lg search-input" placeholder="Начать поиск ..." required="required">
+                                            <input type="text" name="q" class="form-control input-lg search-input" placeholder="Начать поиск ..." required="required">
                                             <div class="input-group-btn">
                                                 <div class="input-group">
                                                     <div class="input-group-btn">

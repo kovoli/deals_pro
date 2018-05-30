@@ -3,10 +3,15 @@ from django.utils import timezone
 from unidecode import unidecode
 from django.template.defaultfilters import slugify
 from django.urls import reverse
-from imagekit.models import ImageSpecField
+from imagekit.models import ImageSpecField, ProcessedImageField
 from imagekit.processors import Resize, ResizeCanvas
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+
+# Импорты для удаления картинок после удаления статьи
+import os
+from django.db.models.signals import pre_delete
+from django.dispatch.dispatcher import receiver
 
 
 class Store(models.Model):
@@ -90,11 +95,10 @@ class Coupon(models.Model):
     expired = models.DateTimeField()
     promocode = models.CharField(max_length=200, blank=True)
     coupon_type = models.ForeignKey(CouponType, related_name='Тип_купона', on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='coupon_image/%Y/%m', blank=True)
-    coupon_image = ImageSpecField(source='image',
-                                 processors=[Resize(600, 400)],
-                                 format='JPEG',
-                                 options={'quality': 50})
+    coupon_image = ProcessedImageField(upload_to='coupon_image/%Y/%m', blank=True,
+                                       processors=[Resize(600, 400)],
+                                       format='JPEG',
+                                       options={'quality': 60})
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -111,6 +115,17 @@ class Coupon(models.Model):
         verbose_name = 'Купон'
         verbose_name_plural = 'Купоны'
 
+def delete_file(path):
+    # Deletes file from filesystem.
+    if os.path.isfile(path):
+        os.remove(path)
+
+
+@receiver(pre_delete, sender=Coupon)
+def delete_img_pre_delete_post(sender, instance, *args, **kwargs):
+    if instance.deals_image:
+        delete_file(instance.deals_image.path)
+
 
 class Deal(models.Model):
     name = models.CharField(max_length=250, verbose_name='скидка')
@@ -119,26 +134,26 @@ class Deal(models.Model):
     publish = models.DateTimeField(default=timezone.now)
     description = RichTextField(blank=True, null=True)
     param = RichTextField(blank=True, null=True)
-    vendor = models.CharField(max_length=200)
+    vendor = models.CharField(max_length=200, blank=True, null=True)
     shop = models.ForeignKey(Store, on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     old_price = models.DecimalField(max_digits=10, decimal_places=2)
     url = models.URLField()
     categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
-    original_picture = models.ImageField(upload_to='deals_images/%Y/%m', blank=True)
-    deals_image = ImageSpecField(source='original_picture',
-                                  processors=[Resize(753, 753)],
-                                  format='JPEG',
-                                  options={'quality': 70})
-    deals_grid_image = ImageSpecField(source='original_picture',
-                                 processors=[Resize(262, 262)],
-                                 format='JPEG',
-                                 options={'quality': 70})
+    deals_image = ProcessedImageField(upload_to='deals_images/%Y/%m', blank=True,
+                                      processors=[Resize(753, 753)],
+                                      format='JPEG',
+                                      options={'quality': 70})
+    deals_grid_image = ImageSpecField(source='deals_image',
+                                      processors=[Resize(262, 262)],
+                                      format='JPEG',
+                                      options={'quality': 70})
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(unidecode(self.name))
         super(Deal, self).save()
+
 
     def __str__(self):
         return self.name
@@ -149,3 +164,16 @@ class Deal(models.Model):
     class Meta:
         verbose_name = 'Скидка'
         verbose_name_plural = 'Скидки'
+
+
+# Удаляет фотографию после удаления статьи
+def delete_file(path):
+    # Deletes file from filesystem.
+    if os.path.isfile(path):
+        os.remove(path)
+
+
+@receiver(pre_delete, sender=Deal)
+def delete_img_pre_delete_post(sender, instance, *args, **kwargs):
+    if instance.deals_image:
+        delete_file(instance.deals_image.path)

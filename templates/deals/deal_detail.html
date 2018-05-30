@@ -17,13 +17,14 @@
                     <div class="row row-tb-20">
                         <div class="col-xs-12">
                             <div class="deal-deatails panel">
-                                <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{{ deal.deals_image.url }}"></figure>
+                                <img class="entry-media post-thumbnail" src="{{ deal.deals_image.url }}"></img>
                                 <div class="deal-body p-20">
                                     <h2 class="mb-10">{{ deal.name }} со скидкой.</h2>
                                     <h4 style="font-weight: bold">Описание: </h4>
                                     <div class="entry-content">
                                         {{ deal.description|safe}}
                                     </div>
+                                    <hr>
                                     <h4 style="font-weight: bold">Характеристики: </h4>
                                     <div class="entry-content">
                                         {{ deal.param|safe}}

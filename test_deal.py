@@ -15,21 +15,29 @@ from urllib.request import urlopen
 import ssl
 import re
 ssl._create_default_https_context = ssl._create_unverified_context
-tree = ET.parse('test.xml')
-
-user = User.objects.get(username='kovoli')
+tree = ET.parse('deals_first_five_shops.xml')
 root = tree.getroot()
+user = User.objects.get(username='kovoli')
+
+shops_list = {'12027': [340, 'Ozon'],
+              '42255': [341, 'Ogo1'],
+              '72135': [342, '220volt'],
+              '75436': [343, 'vseinstrumenti'],
+              '74323': [344, 'Ашан']}
+
 
 
 def populate_deals():
+    only_five = 0
+    merchant_switch = ''
+    offers = root.find('.//offers')
     for offer in root.findall('.//offer'):
         try:
+            merchand = offer.attrib['merchant_id']
+            if merchant_switch == merchand:
+                continue
             description = offer.find('description').text
-            if description == type(None) and len(description) < 150:
-                continue
             oldprice = offer.find('oldprice').text
-            if oldprice == None:
-                continue
             name = offer.find('name').text
             vendor = offer.find('vendor').text
             price = offer.find('price').text
@@ -45,17 +53,33 @@ def populate_deals():
             original_picture = offer.find('original_picture').text
             input_file = BytesIO(urlopen(original_picture, ).read())
             # categoryId = offer.find('categoryId').text
+
+
             deal = Deal.objects.create(name=name, vendor=vendor,
                                        price=price, old_price=oldprice,
-                                       url=url, categoryId_id=1, description=description, author=user, shop_id=241, param=parametar)
-            deal.original_picture.save("скидка на" + name + ".jpg", ContentFile(input_file.getvalue()), save=False)
+                                       url=url, categoryId_id=2, description=description,
+                                       author=user, shop_id=shops_list[merchand][0], param=parametar)
+            deal.deals_image.save("скидка на" + name + ".jpg", ContentFile(input_file.getvalue()), save=False)
             deal.save()
+            merchant_switch = merchand
+            offers.remove(offer)
+            # 5 добавлений в час
+            only_five += 1
+            if only_five == 5:
+                break
             print('Получилось')
         except Exception as a:
             print(a)
     print('Finish!')
 
 
+def save_changes_file():
+    mydata = ET.tostring(root, encoding="utf-8").decode("utf-8")
+    myfile = open("deals_first_five_shops.xml", "w")
+    myfile.write(mydata)
+    myfile.close()
+
+
 if __name__ == '__main__':
     populate_deals()
-
+    save_changes_file()

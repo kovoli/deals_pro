@@ -58,9 +58,9 @@ def deal_detail(request, deal):
 
 
 def search_deal(request):
-    if 'x' in request.GET:
-        x = request.GET['x']
-        search_results = watson.filter(Deal, x)
+    if 'q' in request.GET:
+        q = request.GET['q']
+        search_results = watson.filter(Deal, q)
         posts = helpers.pg_records(request, search_results, 12)
 
-        return render(request, 'deals/search_deals.html', {'posts': posts, 'x': x})
+        return render(request, 'deals/search_deals.html', {'posts': posts, 'q': q})

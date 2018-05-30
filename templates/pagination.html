@@ -5,8 +5,8 @@
         <!-- Page Pagination -->
         <ul class="page-pagination pagination-sm">
             {% if posts.has_previous %}
-                <li><a class="page-numbers" href="?page=1"><i class="fa fa-fast-backward" aria-hidden="true"></i></a></li>
-                <li><a class="page-numbers previous" href="?page={{ posts.previous_page_number }}"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
+                <li><a class="page-numbers" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-fast-backward" aria-hidden="true"></i></a></li>
+                <li><a class="page-numbers previous" href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
             {% endif %}
 
             {% for i in posts.paginator.page_range %}
@@ -16,15 +16,15 @@
                     <!-- For the 1st page we do not use ?page=1 -->
                         <!-- Show current page and +-3 pages -->
                         {% elif i|add:"-5" <= posts.number and posts.number <= i|add:"2" %}
-                            <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+                            <li><a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-numbers ">{{ i }}</a></li>
 
                         {% endif %}
 
 
             {% endfor %}
             {% if posts.has_next %}
-                <li><a href="?page={{ posts.next_page_number }}" class="page-numbers next"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-                <li><a class="page-numbers" href="?page={{ posts.paginator.num_pages }}"><i class="fa fa-fast-forward" aria-hidden="true"></i></a></li>
+                <li><a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-numbers next"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
+                <li><a class="page-numbers" href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-fast-forward" aria-hidden="true"></i></a></li>
             {% endif %}
         </ul>
         <!-- End Page Pagination -->
