@@ -4,9 +4,10 @@ from unidecode import unidecode
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 from imagekit.models import ImageSpecField, ProcessedImageField
-from imagekit.processors import Resize, ResizeCanvas
+from imagekit.processors import Resize, ResizeCanvas, ResizeToFill, ResizeToCover, ResizeToFit, SmartResize
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
+import random
 
 # Импорты для удаления картинок после удаления статьи
 import os
@@ -140,18 +141,18 @@ class Deal(models.Model):
     old_price = models.DecimalField(max_digits=10, decimal_places=2)
     url = models.URLField()
     categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
-    deals_image = ProcessedImageField(upload_to='deals_images/%Y/%m', blank=True,
-                                      processors=[Resize(753, 753)],
+    deals_image = ProcessedImageField(upload_to='deals_images/%Y/%m', blank=True, max_length=250,
+                                      processors=[ResizeToFit(None, 753)],
                                       format='JPEG',
                                       options={'quality': 70})
     deals_grid_image = ImageSpecField(source='deals_image',
-                                      processors=[Resize(262, 262)],
+                                      processors=[ResizeToFit(None, 223)],
                                       format='JPEG',
                                       options={'quality': 70})
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(unidecode(self.name))
+            self.slug = slugify(unidecode(self.name + '___' + str(random.randrange(10, 10000))))
         super(Deal, self).save()
 
 

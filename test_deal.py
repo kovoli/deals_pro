@@ -14,8 +14,10 @@ from io import BytesIO
 from urllib.request import urlopen
 import ssl
 import re
+import random
+
 ssl._create_default_https_context = ssl._create_unverified_context
-tree = ET.parse('deals_first_five_shops.xml')
+tree = ET.parse('deals_computer_5_shops.xml')
 root = tree.getroot()
 user = User.objects.get(username='kovoli')
 
@@ -26,16 +28,18 @@ shops_list = {'12027': [340, 'Ozon'],
               '74323': [344, 'Ашан']}
 
 
-
 def populate_deals():
-    only_five = 0
-    merchant_switch = ''
     offers = root.find('.//offers')
-    for offer in root.findall('.//offer'):
+    only_ten = 0
+    while True:
+        if len(root.findall('.//offer')) == 0:
+            break
         try:
-            merchand = offer.attrib['merchant_id']
-            if merchant_switch == merchand:
+            choices_shop = random.choice(list(shops_list.keys()))
+            offer = root.find('.//offer/[@merchant_id="{}"]'.format(choices_shop))
+            if offer == None:
                 continue
+            merchand = offer.attrib['merchant_id']
             description = offer.find('description').text
             oldprice = offer.find('oldprice').text
             name = offer.find('name').text
@@ -52,34 +56,27 @@ def populate_deals():
             parametar = ''.join(parametar)
             original_picture = offer.find('original_picture').text
             input_file = BytesIO(urlopen(original_picture, ).read())
-            # categoryId = offer.find('categoryId').text
-
 
             deal = Deal.objects.create(name=name, vendor=vendor,
                                        price=price, old_price=oldprice,
                                        url=url, categoryId_id=2, description=description,
-                                       author=user, shop_id=shops_list[merchand][0], param=parametar)
+                                       author=user, shop_id=int(merchand), param=parametar)
             deal.deals_image.save("скидка на" + name + ".jpg", ContentFile(input_file.getvalue()), save=False)
             deal.save()
-            merchant_switch = merchand
+
             offers.remove(offer)
-            # 5 добавлений в час
-            only_five += 1
-            if only_five == 5:
-                break
+            only_ten += 1
             print('Получилось')
+            print(only_ten)
         except Exception as a:
             print(a)
-    print('Finish!')
-
-
-def save_changes_file():
     mydata = ET.tostring(root, encoding="utf-8").decode("utf-8")
-    myfile = open("deals_first_five_shops.xml", "w")
+    myfile = open("deals_computer_5_shops.xml", "w")
     myfile.write(mydata)
     myfile.close()
+    print('Finish!')
+    print(len(root.findall('.//offer')))
 
 
 if __name__ == '__main__':
     populate_deals()
-    save_changes_file()
