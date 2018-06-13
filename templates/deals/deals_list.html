@@ -28,13 +28,17 @@
                                 <div class="deal-price pos-r" style="background-color: #324554">
                                     <h4 class="price ptb-5 text-center"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span><br>{{ deal.price }} <i class="ico fa fa-ruble"></i></h4>
                                 </div>
+
                                         <figure class="thumbnail">
+
                                         <img src="{{ deal.deals_grid_image.url }}">
-                                        <div class="deal-store-logo">
+
+                                            <div class="deal-store-logo">
                                             <a href="{{ deal.shop.get_absolute_url }}"><img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
                                         </div>
                                         </figure>
-                                    <div class="bg-white pt-20 pl-20 pr-15">
+
+                                    <div class="bg-white pt-5 pl-20 pr-15">
                                         <div class="pr-md-10">
                                             <h3 class="deal-title mb-10 text-left" style="font-size: 16px; height: 60px">
                                     <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:45 }}</a>

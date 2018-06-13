@@ -4999,11 +4999,13 @@ a.badge:focus {
   }
 }
 .thumbnail {
-  display: block;
+  display: flex;
   padding: 4px;
   margin-bottom: 5px;
   line-height: 1.42857143;
   background-color: #fff;
+  align-items: center;
+  height: 235px;
   -webkit-transition: border .2s ease-in-out;
        -o-transition: border .2s ease-in-out;
           transition: border .2s ease-in-out;

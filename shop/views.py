@@ -3,6 +3,7 @@ from django.utils import timezone
 from .models import Store, Coupon, Deal, Category
 from deals_pro import helpers
 from watson import search as watson
+from django.db.models import F
 
 
 def store_list(request):
@@ -54,6 +55,9 @@ def deal_index(request, category_slug=None):
 
 def deal_detail(request, deal):
     deal = get_object_or_404(Deal, slug=deal)
+    deal.views = F('views') + 1
+    deal.save()
+    deal.refresh_from_db(fields=['views'])
     return render(request, 'deals/deal_detail.html', {'deal': deal})
 
 

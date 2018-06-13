@@ -20,15 +20,11 @@ class Store(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     publish = models.DateTimeField(default=timezone.now)
     content = RichTextField(blank=True, null=True)
-    image = models.ImageField(upload_to='store_image/%Y/%m/', blank=True)
-    image_store = ImageSpecField(source='image',
-                                 processors=[Resize(200, 200)],
-                                 format='JPEG',
-                                 options={'quality': 50})
-    img_single_store = ImageSpecField(source='image',
-                                      processors=[Resize(200, 100)],
+    image_store = ProcessedImageField(upload_to='store_image/%Y/%m/',
+                                      blank=True,
+                                      processors=[Resize(200, 200)],
                                       format='JPEG',
-                                      options={'quality': 50})
+                                      options={'quality': 80})
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -97,9 +93,9 @@ class Coupon(models.Model):
     promocode = models.CharField(max_length=200, blank=True)
     coupon_type = models.ForeignKey(CouponType, related_name='Тип_купона', on_delete=models.CASCADE)
     coupon_image = ProcessedImageField(upload_to='coupon_image/%Y/%m', blank=True,
-                                       processors=[Resize(600, 400)],
+                                       processors=[ResizeToFit(None, 223)],
                                        format='JPEG',
-                                       options={'quality': 60})
+                                       options={'quality': 70})
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -130,7 +126,7 @@ def delete_img_pre_delete_post(sender, instance, *args, **kwargs):
 
 class Deal(models.Model):
     name = models.CharField(max_length=250, verbose_name='скидка')
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, max_length=255)
     author = models.ForeignKey(User, default=User, on_delete=models.CASCADE)
     publish = models.DateTimeField(default=timezone.now)
     description = RichTextField(blank=True, null=True)
@@ -140,9 +136,10 @@ class Deal(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     old_price = models.DecimalField(max_digits=10, decimal_places=2)
     url = models.URLField()
+    views = models.PositiveIntegerField(default=0)
     categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
     deals_image = ProcessedImageField(upload_to='deals_images/%Y/%m', blank=True, max_length=250,
-                                      processors=[ResizeToFit(None, 753)],
+                                      processors=[ResizeToFit(None, 600)],
                                       format='JPEG',
                                       options={'quality': 70})
     deals_grid_image = ImageSpecField(source='deals_image',

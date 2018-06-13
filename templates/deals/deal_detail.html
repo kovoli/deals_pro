@@ -17,7 +17,7 @@
                     <div class="row row-tb-20">
                         <div class="col-xs-12">
                             <div class="deal-deatails panel">
-                                <img class="entry-media post-thumbnail" src="{{ deal.deals_image.url }}"></img>
+                                <img class="entry-media img-responsive center-block" src="{{ deal.deals_image.url }}"></img>
                                 <div class="deal-body p-20">
                                     <h2 class="mb-10">{{ deal.name|upper }} со скидкой.</h2>
                                     <div class="entry-content">
@@ -49,7 +49,9 @@
                                     <div class="widget-body text-center">
                                         <ul class="deal-meta list-inline mb-10 color-mid">
                                             <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
-                                            {% if deal.vendor %}<li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>{% endif %}
+                                            {% if deal.vendor %}
+                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
+                                            {% endif %}
                                         </ul>
                                         <div class="price mb-20">
                                             <h2 class="price"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span> {{ deal.price }} <i class="ico fa fa-ruble"></i></h2>
