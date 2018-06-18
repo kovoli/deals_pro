@@ -17,6 +17,7 @@ import random
 import requests, zipfile, io, os
 import xml.etree.ElementTree as ET
 import sys
+from category_list import cat_list
 
 
 name_cat = sys.argv[1]
@@ -69,15 +70,6 @@ shops_list = {'12027': [340, 'Ozon'],
               '75436': [343, 'vseinstrumenti'],
               '74323': [344, 'Ашан']}
 
-cat_list = {
-    'computer': 2,
-    'bit_tech': 1,
-    'phones': 3,
-    'dlja_sada': 4,
-}
-
-
-
 offers = root.find('.//offers')
 #only_ten = 0
 while True:
@@ -89,6 +81,9 @@ while True:
         if offer == None:
             continue
         merchand = offer.attrib['merchant_id']
+        category = offer.attrib['gs_category_id']
+        if category not in cat_list[name_cat][0]:
+            category = cat_list[name_cat][1][0]
         description = offer.find('description').text
         oldprice = offer.find('oldprice').text
         name = offer.find('name').text
@@ -108,7 +103,7 @@ while True:
 
         deal = Deal.objects.create(name=name, vendor=vendor,
                                    price=price, old_price=oldprice,
-                                   url=url, categoryId_id=cat_list[name_cat], description=description,
+                                   url=url, categoryId_id=int(category), description=description,
                                    author=user, shop_id=int(merchand), param=parametar)
         deal.deals_image.save("скидка на" + name + ".jpg", ContentFile(input_file.getvalue()), save=False)
         deal.save()

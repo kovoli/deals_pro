@@ -1,18 +1,16 @@
-<div class="widget best-rated-deals panel pt-20 prl-20">
-    <h3 class="widget-title h-title">Последние скидки</h3>
-    <div class="widget-body ptb-30">
-        {% for deal in show_deals %}
-        <div class="media">
-            <div class="media-left">
-                <a href="{{ deal.get_absolute_url }}">
-                    <img class="media-object" src="{{ deal.deals_image.url }}" alt="Thumb" width="80">
-                </a>
-            </div>
-            <div class="media-body">
-                <h6 class="mb-5"><a href="{{ deal.get_absolute_url }}">{{ deal.name }}</a></h6>
-                <h4 class="price font-16">{{ deal.price }}<i class="ico fa fa-ruble"></i> <span class="price-sale color-muted">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span></h4>
-            </div>
-        </div>
-        {% endfor %}
+<div class="card my-4">
+<h5 class="card-header">Последние скидки</h5>
+<ul class="list-unstyled">
+  {% for deal in show_deals %}
+  <li class="media m-2">
+    <a href="{{ deal.get_absolute_url }}">
+        <img class="mr-1" src="{{ deal.deals_image.url }}" height="80" width="80" alt="Скидка на {{ deal.name }}">
+    </a>
+    <div class="media-body">
+      <h6 class="mt-0 mb-1"><a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:45 }}</a></h6>
+      <h6 class="price font-16 mb-0 text-success">{{ deal.price }} <i class="fas fa-ruble-sign"></i> <span class="price-sale">{{ deal.old_price }} <i class="fas fa-ruble-sign"></i></span></h6>
     </div>
+  </li>
+  {% endfor %}
+</ul>
 </div>

@@ -6,197 +6,156 @@
     {{ shop.content|safe|truncatechars:325|striptags }}
 {% endblock %}
 {% block content %}
-<!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
-<main id="mainContent" class="main-content">
-    <!-- Page Container -->
-    <div class="page-container ptb-60">
-        <div class="container">
-            <div class="row row-rl-10 row-tb-20">
-                <div class="page-sidebar col-sm-4 col-md-3">
-                    <aside class="store-header-area panel t-center">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <figure class="pt-10 pl-10">
-                                    <img src="{% if shop.image_store %}{{ shop.image_store.url }}{% endif %}" alt="Скидки магазина {{ shop.title }}">
-                                </figure>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="store-about ptb-30 prl-10">
-                                    <h3 class="mb-10">{{ shop.title }}</h3>
-                                    <p class="mb-15">{{ shop.content|safe }}</p>
-                                </div>
-                            </div>
-                            <div class="col-xs-12">
-                                <div class="store-splitter-left">
-                                    <header class="left-splitter-header prl-10 ptb-20 bg-lighter">
-                                        <div class="row">
-                                            <div class="col-xs-6">
-                                                <h2>{{ deals_count }}</h2>
-                                                <p>Скидок</p>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <h2>{{ count_sum_coupons }}</h2>
-                                                <p>Купонов</p>
-                                            </div>
-                                        </div>
-                                    </header>
-                                    <footer class="left-splitter-social prl-20 ptb-20">
-                                        <ul class="list-inline social-icons social-icons--colored t-center">
-                                            <li class="social-icons__item">
-                                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                            </li>
-                                            <li class="social-icons__item">
-                                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                            </li>
-                                            <li class="social-icons__item">
-                                                <a href="#"><i class="fa fa-google-plus"></i></a>
-                                            </li>
-                                            <li class="social-icons__item">
-                                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                            </li>
-                                        </ul>
-                                    </footer>
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
+<div class="container">
+
+  <!-- row blog -->
+  <div class="row">
+
+    <div class="col-lg-3">
+      <div class="card my-4">
+        <div class="card-body">
+            <figure class="figure-img d-flex mx-auto justify-content-center mt-3" >
+                <img class="py-1 d-block img-fluid" src="{% if shop.image_store %}{{ shop.image_store.url }}{% endif %}" alt="Скидки магазина {{ shop.title }}" height="200">
+            </figure>
+                <div class="store-about text-center mt-3">
+                    <h3 class="mb-1">{{ shop.title }}</h3>
+                    {% if shop.content %}
+                    <p class="mb-15">{{ shop.content|safe }}</p>
+                    {% endif %}
                 </div>
-                <div class="page-content col-sm-8 col-md-9">
-
-                    <!-- Store Tabs Area -->
-                    <div class="section store-tabs-area">
-                        <div class="tabs tabs-v1">
-                            <!-- Nav tabs -->
-                            <ul class="nav nav-tabs panel" role="tablist">
-                                <li role="presentation" class="active">
-                                    <a href="#deals" aria-controls="deals" role="tab" data-toggle="tab" aria-expanded="false"><i class="fa fa-comment mr-10"></i>Скидки</a>
-                                </li>
-                                <li role="presentation">
-                                    <a href="#coupons" aria-controls="coupons" role="tab" data-toggle="tab" aria-expanded="true"><i class="fa fa-star mr-10"></i>Купоны</a>
-                                </li>
-                            </ul>
-
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div role="tabpanel" class="tab-pane ptb-20 active" id="deals">
-                                    <section class="section deals-area">
-                                        <div class="row row-masnory row-tb-20 ">
-                                            {% for deal in posts %}
-                                            <div class="col-sm-6 col-lg-4">
-                                                <div class="deal-single panel">
-                                                    <div class="deal-price pos-r " style="background-color: #324554">
-                                                        <h4 class="price ptb-5 text-center"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span><br>{{ deal.price }} <i class="ico fa fa-ruble"></i></h4>
-                                                    </div>
-                                                    <figure class="thumbnail">
-                                                        <img src="{{ deal.deals_grid_image.url }}">
-                                                        <div class="deal-store-logo">
-                                                            <a href="{{ deal.shop.get_absolute_url }}"><img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
-                                                        </div>
-                                                    </figure>
-                                                    <div class="bg-white pt-15 pl-15 pr-15">
-                                                        <div class="pr-md-10">
-                                                            <h3 class="deal-title mb-10" style="height: 70px">
-                                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:30 }}</a>
-                                                </h3>
-                                                            <ul class="deal-meta list-inline mb-10 color-mid">
-                                                                <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
-                                                            </ul>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="buy-now mb-0">
-                                            <a href="{{ deal.url }}" target="_blank" class="btn btn-block btn-lg">
-                                                <i class="fa fa-shopping-cart font-16 mr-10"></i> В магазин
-                                            </a>
-                                        </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </section>
-                                <!-- Page Pagination -->
-                                        {% include 'pagination.html' %}
-                                        <!-- End Page Pagination -->
-                                </div>
-                                <div role="tabpanel" class="tab-pane ptb-20" id="coupons">
-                                    <section class="section coupons-area coupons-area-grid">
-                                        <div class="row row-masnory row-tb-20">
-                            {% for coupon in coupons %}
-                            <div class="col-xs-12">
-                                <div class="coupon-single panel t-center t-sm-left">
-                                    <div class="row row-sm-cell row-tb-0 row-rl-0">
-                                        <div class="col-sm-3">
-                                            <figure class="p-15">
-                                                <img class="store-logo" src="{% if coupon.coupon_image %}
-                                                                                {{ coupon.coupon_image.url }}
-                                                                                {% else %}
-                                                                                {{ coupon.shop.image_store.url }}
-                                                                                {% endif %}" alt="">
-                                            </figure>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-sm-9">
-                                            <div class="panel-body">
-                                                <ul class="deal-meta list-inline mb-10">
-                                                    <li class="color-muted"><i class="ico fa fa-cart-plus mr-10" ></i>{{ coupon.shop.title }}</li>
-                                                    <li class="color-blue" data-toggle="tooltip" data-placement="bottom" title="{{ coupon.body|safe }}" ><i class="ico fa fa-info mr-10"></i>Условие</li>
-                                                </ul>
-                                                <h5 class="deal-title mb-10">{{ coupon.title }}</h5>
-                                                <p class="mb-15 color-muted font-12"><i class="lnr lnr-clock mr-10"></i>Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
-                                                <div class="showcode">
-                                                    <button class="show-code btn btn-sm btn-block" data-toggle="modal" data-target="#{{ coupon.id }}">{{ coupon.coupon_type }}</button>
-                                                    <div class="coupon-hide">{{ coupon.promocode }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                    </div>
-                                    <!-- end row -->
-                                </div>
-                                <div class="modal fade get-coupon-area" tabindex="-1" role="dialog" id="{{ coupon.id }}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content panel">
-                                            <div class="modal-body">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <div class="row row-v-10">
-                                                    <div class="col-md-10 col-md-offset-1">
-                                                        <img src="{{ coupon.shop.img_single_store.url }}" alt="{{ coupon.title }}">
-                                                        <h3 class="mb-20">{{ coupon.title }}</h3>
-                                                        <p class="color-mid">{{ coupon.body|safe }}</p>
-                                                    </div>
-                                                    <div class="col-md-10 col-md-offset-1">
-                                                        <a href="{{ coupon.coupon_link }}" class="btn btn-link">Посетить магазин</a>
-                                                    </div>
-                                                    <div class="col-md-10 col-md-offset-1">
-                                                        <h6 class="color-mid t-uppercase">Нажмите ниже чтобы принять участие в акции</h6>
-                                                        <a href="{{ coupon.coupon_link }}" target="_blank" class="coupon-code">{{ coupon.promocode }}</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        {% endfor %}
-                        </div>
-
-
-                                    </section>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Store Tabs Area -->
-
+            <div class="row text-center mt-3">
+                <div class="col-sm-6">
+                    <h3 class="text-muted">{{ deals_count }}</h3>
+                    <p>Скидок</p>
+                </div>
+                <div class="col-sm-6">
+                    <h3 class="text-muted">{{ count_sum_coupons }}</h3>
+                    <p>Купонов</p>
                 </div>
             </div>
         </div>
+      </div>
     </div>
-    <!-- End Page Container -->
-</main>
-<!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
+    <!-- /.col-lg-3 -->
+
+    <div class="col-lg-9">
+
+      <div class="card mt-4 mb-3">
+        <div class="card-body p-2">
+          <ul class="nav nav-pills" id="pills-tab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Скидки</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Купоны</a>
+              </li>
+            </ul>
+        </div>
+      </div>
+
+      <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+              <div class="row">
+                  {% for deal in posts %}
+                      <div class="col-lg-4 col-md-6 mb-4">
+                          <div class="card h-100">
+
+                            <figure class="figure-img d-flex mx-auto align-items-center mt-3" style="height: 200px">
+                            <a href="{{ deal.url }}"><img class="py-1 d-block img-fluid" src="{% if deal.deals_grid_image %}{{ deal.deals_grid_image.url }}{% endif %}" alt="Скидка на {{ deal.name }}"></a>
+                            </figure>
+                            <h6 class="price p-2 mb-0 text-center text-success"> {{ deal.price }} <i class="fas fa-ruble-sign"></i> / <span class="price-sale">{{ deal.old_price }} <i class="fas fa-ruble-sign"></i></span></h6>
+                            <div class="card-body p-2">
+                              <h4 class="card-title text-center mb-0">
+                                <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:55 }}</a>
+                              </h4>
+                            </div>
+                              <a href="{{ deal.shop.get_absolute_url }}" class="text-center mb-1"><small>от</small> {{ deal.shop.title }}</a>
+                              <a href="{{ deal.url }}" target="_blank" class="btn btn-block card-footer text-white" >
+                                  В Магазин
+                              </a>
+                          </div>
+                      </div>
+                  {% endfor %}
+
+
+              </div>
+          {% include 'pagination.html' %}
+          </div>
+        <!-- coupon section -->
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+              <div class="row">
+                  {% for coupon in coupons %}
+      <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+
+            <figure class="figure-img d-flex mx-auto align-items-center mt-3" style="height: 150px">
+            <img class="py-1 d-block img-fluid" src="{% if coupon.shop.image_store %}
+                                                     {{ coupon.shop.image_store.url }}
+                                                     {% endif %}" alt="Промокод {{ coupon.title }}" style="width: 150px; height: 150px">
+            </figure>
+            <div class="card-body p-2">
+              <h4 class="card-title text-center mb-0">{{ coupon.title }}</h4>
+              <p class="text-center mt-2 mb-0">Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
+            </div>
+              <a href="{{ coupon.shop.get_absolute_url }}" class="text-center mb-1">{{ coupon.shop.title }}</a>
+              <a href="#" class="btn btn-coupon btn-block card-footer text-white" data-toggle="modal" data-target="#{{ coupon.id }}">
+                  УЗНАТЬ ПРОМОКОД <i class="fas fa-angle-right"></i>
+              </a>
+          </div>
+        </div>
+
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ coupon.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header p-1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+              </div>
+              <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-12 align-content-center">
+
+                      <img class="py-2 d-block mx-auto align-items-center img-fluid" src="{% if coupon.shop.image_store %}
+                                                                                          {{ coupon.shop.image_store.url }}
+                                                                                          {% endif %}" alt="Промокод {{ coupon.title }}">
+
+                      <h3 class="text-center">{{ coupon.title }}</h3>
+                      <p class="text-center">{{ coupon.body }}</p>
+                        <p class="text-center mt-2 mb-2">Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
+                      <div class="input-group mb-3">
+                        <input id="myInput" type="text" class="form-control text-center" value="{{ coupon.promocode }}" aria-describedby="promocode">
+
+                        <div class="input-group-append">
+                          <button id="copy-button" class="btn btn-outline-secondary" type="button" onclick="myFunction()">
+                            <i class="fas fa-copy"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a href="{{ coupon.coupon_link }}" class="btn d-block" target="_blank" style="color: #ffffff">Посетить магазин</a>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+              </div>
+        </div>
+
+        </div>
+
+    </div>
+    <!-- /.col-lg-9 -->
+
+  </div>
+  <!-- /.row -->
+
+</div>
 {% endblock %}

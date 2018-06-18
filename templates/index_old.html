@@ -1,0 +1,169 @@
+{% extends 'base_old.html' %}
+{% load static %}
+{% block content %}
+<!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
+<main id="mainContent" class="main-content">
+    <div class="page-container ptb-10">
+        <div class="container">
+            <div class="section explain-process-area ptb-30" style="padding-bottom: 0px!important;">
+                <div class="row row-rl-10">
+                    <div class="col-md-4">
+                        <div class="item panel prl-15 ptb-20">
+                            <div class="row row-rl-5 row-xs-cell">
+                                <div class="col-xs-4 valign-middle">
+                                    <img class="pr-10" src="{% static '/images/icons/tablet.png' %}" alt="">
+                                </div>
+                                <div class="col-xs-8">
+                                    <h5 class="mb-10 pt-5">Скидки и купоны</h5>
+                                    <p class="color-mid">В одном месте, отсортированные по интернет-магазинам.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="item panel prl-15 ptb-20">
+                            <div class="row row-rl-5 row-xs-cell">
+                                <div class="col-xs-4 valign-middle">
+                                    <img class="pr-10" src="{% static 'images/icons/online-shop-6.png' %}" alt="">
+                                </div>
+                                <div class="col-xs-8">
+                                    <h5 class="mb-10 pt-5">Лучшие предложения</h5>
+                                    <p class="color-mid">Находите лучшие предложения от ведущих интернет-магазинов.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="item panel prl-15 ptb-20">
+                            <div class="row row-rl-5 row-xs-cell">
+                                <div class="col-xs-4 valign-middle">
+                                    <img class="pr-10" src="{% static 'images/icons/money.png' %}" alt="">
+                                </div>
+                                <div class="col-xs-8">
+                                    <h5 class="mb-10 pt-5">Экономьте деньги</h5>
+                                    <p class="color-mid">Зачем покупать дороже если можно купить товар со скидкой.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section latest-deals-area ptb-30">
+                <header class="panel ptb-15 prl-20 pos-r mb-30">
+                    <h3 class="section-title font-18">Cкидки</h3>
+                    <a href="{% url 'deal:deal_index' %}" class="btn btn-o btn-xs pos-a right-10 pos-tb-center">Посмотреть все</a>
+                </header>
+
+                <div class="row row-masnory row-tb-20">
+                    {% for deal in deals_main_list %}
+                    <div class="col-sm-4 col-lg-3">
+                        <div class="deal-single panel" style="min-height: 610px">
+                            <div class="deal-price pos-r mb-0" style="background-color: #324554">
+                                <h3 class="price ptb-5 text-center"><span class="price-sale">{{ deal.old_price }} <i class="ico fa fa-ruble"></i></span><br>{{ deal.price }} <i class="ico fa fa-ruble"></i></h3>
+                            </div>
+                                    <figure class="thumbnail">
+                                        <img src="{{ deal.deals_grid_image.url }}">
+                                        <div class="deal-store-logo">
+                                            <a href="{{ deal.shop.get_absolute_url }}"><img src="{% if deal.shop.image_store %}{{ deal.shop.image_store.url }}{% endif %}" alt="Скидки в магазине {{ deal.shop.title }}"></a>
+                                        </div>
+                                    </figure>
+                                    <div class="bg-white pt-20 pl-20 pr-15">
+                                        <div class="pr-md-10">
+                                            <h3 class="deal-title mb-10" style="font-size: 16px">
+                                    <a href="{{ deal.get_absolute_url }}">{{ deal.name|truncatechars:30 }}</a>
+                                            </h3>
+
+                                            <ul class="deal-meta list-inline mb-10 color-mid">
+                                                <li><i class="ico fa fa-barcode mr-10"></i>{{ deal.vendor }}</li>
+                                                <li><i class="ico fa fa-tag mr-10"></i><a href="{{ deal.categoryId.get_absolute_url }}" class="color-mid">{{ deal.categoryId.name }}</a></li>
+                                            </ul>
+                                            <p class="text-muted mb-10">{{ deal.description|safe|truncatechars:140|striptags }}</p>
+                                        </div>
+                                    </div>
+                                    </div>
+                            <div class="buy-now mb-5">
+                                <a href="{{ deal.url }}" target="_blank" class="btn btn-block btn-lg">
+                                    <i class="fa fa-shopping-cart font-16 mr-10"></i> В магазин
+                                </a>
+                            </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="section stores-area stores-area-v1 ptb-30">
+                <header class="panel ptb-15 prl-20 pos-r mb-30">
+                    <h3 class="section-title font-18">Магазины</h3>
+                    <a href="{% url 'shop:store_list' %}" class="btn btn-o btn-xs pos-a right-10 pos-tb-center">Все магазины</a>
+                </header>
+                <div class="popular-stores-slider owl-slider" data-loop="true" data-autoplay="true" data-smart-speed="1000" data-autoplay-timeout="10000" data-margin="20" data-items="2" data-xxs-items="2" data-xs-items="2" data-sm-items="3" data-md-items="5" data-lg-items="6">
+                {% for store in shop_main_list %}
+                    <div class="store-item t-center">
+                        <a href="{{ store.get_absolute_url }}" class="panel is-block">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <div class="store-logo">
+                                    <img src="{% if store.image_store %}{{ store.image_store.url }}{% endif %}" alt="Скидки в магазине {{ store.title }}">
+                                </div>
+                            </div>
+                            <h6 class="store-name ptb-10">{{ store.title }}</h6>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+            </section>
+
+
+            <section class="section latest-news-area blog-area blog-grid blog-3-col ptb-30">
+                <header class="panel ptb-15 prl-20 pos-r mb-30">
+                    <h3 class="section-title font-18">Новости</h3>
+                    <a href="{% url 'blog:blog_index' %}" class="btn btn-o btn-xs pos-a right-10 pos-tb-center">Посетить блог</a>
+                </header>
+
+                <div class="row row-tb-20">
+
+                    <!-- Blog Post -->
+                    {% for post in blog_main_list %}
+                    <div class="blog-post col-xs-12 col-sm-6 col-md-4">
+
+                        <article class="entry panel">
+                            <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9" data-bg-img="{% if post.image_list_blog %}{{ post.image_list_blog.url }}{% endif %}">
+                            </figure>
+                            <div class="entry-wrapper pt-20 pb-10 prl-20">
+                                <header class="entry-header">
+                                    <h4 class="entry-title mb-10 mb-md-15 font-xs-16 font-sm-18 font-md-16 font-lg-16">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </h4>
+                                    <div class="entry-meta mb-10">
+                                        <ul class="tag-info list-inline">
+                                            <li> <i class="icon fa fa-user"></i>{{ post.author }}</li>
+                                            <li><i class="icon fa fa-calendar"></i>{{ post.publish|date:"d.m.Y" }}</li>
+                                            <li><i class="icon fa fa-tag"></i>
+                                                <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </header>
+                                <div class="entry-content">
+                                    <p class="entry-summary">{{ post.body|safe|truncatewords:15 }}</p>
+                                </div>
+                                <footer class="entry-footer text-right">
+                                    <a href="{{ post.get_absolute_url }}" class="more-link btn btn-link">Читать дальше <i class="icon fa fa-long-arrow-right"></i></a>
+                                </footer>
+                            </div>
+                        </article>
+
+                    </div>
+                    {% endfor %}
+                    <!-- End Blog Post -->
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+</main>
+<!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
+
+{% endblock %}

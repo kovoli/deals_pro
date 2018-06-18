@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Store,  Coupon, Category, CouponType, Deal
+from mptt.admin import MPTTModelAdmin
 
 
 class StoreAdmin(admin.ModelAdmin):
@@ -20,12 +21,16 @@ class CouponTypeAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {'slug': ('type',)}
 
+class CategoryAdmin(MPTTModelAdmin):
+    fields = ['name', 'parent']
+    list_display = ('name',)
 
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug',)
-    search_fields = ('name',)
+    mptt_level_indent = 15
+#class CategoryAdmin(admin.ModelAdmin):
+    #list_display = ('name', 'slug',)
+   # search_fields = ('name',)
 
-    prepopulated_fields = {'slug': ('name',)}
+    #prepopulated_fields = {'slug': ('name',)}
 
 
 class DealAdmin(admin.ModelAdmin):
@@ -40,3 +45,7 @@ admin.site.register(Store, StoreAdmin)
 admin.site.register(Coupon, CouponAdmin)
 admin.site.register(CouponType, CouponTypeAdmin)
 admin.site.register(Category, CategoryAdmin)
+
+
+
+

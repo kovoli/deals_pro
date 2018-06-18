@@ -1,25 +1,13 @@
-<div class="widget recent-posts panel pt-20 prl-20">
-    <h3 class="widget-title h-title">Последние записи</h3>
-    <div class="widget-body ptb-30">
+<div class="card my-4">
+    <h5 class="card-header">Последние записи</h5>
+    <ul class="list-unstyled">
     {% for post in latest_posts %}
-        <div class="recent-post media">
-            <div class="post-thumb media-left">
-                <a href="{{ post.get_absolute_url }}">
-
-                    <img class="media-object" src="{% if post.image %}{{ post.image_sidebar_blog.url }}{% endif %}" alt="Скидка {{ post.title }}">
-                </a>
-            </div>
-            <div class="media-body">
-                <h5 class="font-15 mb-10">
-                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                </h5>
-                <ul class="post-meta list-inline">
-                    <li> <i class="ico fa fa-user mr-5"></i>{{ post.author }}</li>
-                    <li><i class="ico fa fa-calendar mr-5"></i>{{ post.publish|date:"d.m.Y"}}</li>
-                </ul>
-            </div>
+      <li class="media m-1">
+        <img class="mr-1" src="{% if post.image %}{{ post.image_sidebar_blog.url }}{% endif %}" alt="Скидка {{ post.title }}" height="80">
+        <div class="media-body">
+            <a href="{{ post.get_absolute_url }}"> <h5 class="mt-0 mb-1">{{ post.title }}</h5></a>
         </div>
+      </li>
     {% endfor %}
-
-    </div>
-</div>
+    </ul>
+  </div>

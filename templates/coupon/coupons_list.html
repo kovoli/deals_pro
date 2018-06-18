@@ -6,124 +6,110 @@
 {% endblock %}
 
 {% block content %}
-<!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
-<main id="mainContent" class="main-content">
-    <div class="page-container ptb-60">
-        <div class="container">
-            <div class="row row-rl-10 row-tb-20">
-                <div class="page-content col-xs-12 col-md-8">
 
+<div class="container">
 
-                    <section class="section coupons-area coupons-area-grid">
+  <!-- row blog -->
+  <div class="row">
 
-                        <!-- Page Control -->
+    <!-- Blog Entries Column -->
+    <div class="col-md-8 col-sm-12">
 
-                        <!-- End Page Control -->
-                        <!-- Row -->
-                        <div class="row row-masnory row-tb-20">
-                            {% for coupon in posts %}
-                            <div class="col-xs-12">
-                                <div class="coupon-single panel t-center t-sm-left">
-                                    <div class="row row-sm-cell row-tb-0 row-rl-0">
-                                        <div class="col-sm-3">
-                                            <figure class="p-15">
-                                                <img class="store-logo" src="{% if coupon.coupon_image %}
-                                                                                {{ coupon.coupon_image.url }}
-                                                                                {% else %}
-                                                                                {{ coupon.shop.image_store.url }}
-                                                                                {% endif %}" alt="">
-                                            </figure>
-                                        </div>
-                                        <!-- end col -->
-                                        <div class="col-sm-9">
-                                            <div class="panel-body">
-                                                <ul class="deal-meta list-inline mb-10">
-                                                    <li class="color-muted"><a href="{{ coupon.shop.get_absolute_url }}"><i class="ico lnr lnr-home mr-5"></i>{{ coupon.shop.title }}</a></li>
-                                                    <li class="color-blue" data-toggle="tooltip" data-placement="bottom" title="{{ coupon.body }}" ><i class="ico lnr lnr-warning mr-5"></i>Условие</li>
-                                                </ul>
-                                                <h5 class="deal-title mb-10">{{ coupon.title }}</h5>
-                                                <p class="mb-15 color-muted font-12"><i class="lnr lnr-clock mr-10"></i>Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
-                                                <div class="showcode">
-                                                    <button class="show-code btn btn-sm btn-block" data-toggle="modal" data-target="#{{ coupon.id }}">{{ coupon.coupon_type }}</button>
-                                                    <div class="coupon-hide">{{ coupon.promocode }}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end col -->
-                                    </div>
-                                    <!-- end row -->
-                                </div>
-                                <div class="modal fade get-coupon-area" tabindex="-1" role="dialog" id="{{ coupon.id }}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content panel">
-                                            <div class="modal-body">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <div class="row row-v-10">
-                                                    <div class="col-md-10 col-md-offset-1">
-                                                        <img src="{% if coupon.coupon_image %}
-                                                                                {{ coupon.coupon_image.url }}
-                                                                                {% else %}
-                                                                                {{ coupon.shop.image_store.url }}
-                                                                                {% endif %}" alt="{{ coupon.title }}">
-                                                        <h3 class="mb-20">{{ coupon.title }}</h3>
-                                                        <p class="color-mid">{{ coupon.body }}</p>
-                                                    </div>
-                                                    <div class="col-md-10 col-md-offset-1">
-                                                        <a href="{{ coupon.coupon_link }}" class="btn btn-link">Посетить магазин</a>
-                                                    </div>
-                                                    <div class="col-md-10 col-md-offset-1">
+      <h1 class="my-4">Список всех купонов и акции</h1>
 
-                                                        <h6 class="color-mid t-uppercase">Нажмите ниже чтобы принять участие в акции</h6>
-                                                        <a href="{{ coupon.coupon_link }}" target="_blank" class="coupon-code">{{ coupon.promocode }}</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+      <div class="row">
+      <!-- Blog Post -->
+{% for coupon in posts %}
+      <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
 
-                                </div>
-
-                            </div>
-                        {% endfor %}
-                        </div>
-
-                        <!-- End Row -->
-
-                        <!-- Page Pagination -->
-
-                        <!-- End Page Pagination -->
-
-                    </section>
-
-                </div>
-
-                <!-- Page Sidebar -->
-                <div class="page-sidebar col-md-4 col-xs-12">
-
-                    <!-- Blog Sidebar -->
-                    <aside class="sidebar blog-sidebar">
-                        <div class="row row-tb-10">
-                            <div class="col-xs-12">
-                                <!-- Best Rated Deals -->
-                                {% show_last_deals %}
-                                <!-- Best Rated Deals -->
-                            </div>
-                            <div class="col-xs-12">
-                                <!-- Trending Stores -->
-                                {% trending_stores %}
-                                <!-- End Trending Stores -->
-                            </div>
-                        </div>
-                    </aside>
-                    <!-- End Blog Sidebar -->
-                </div>
-                <!-- End Page Sidebar -->
+            <figure class="figure-img d-flex mx-auto align-items-center mt-3" style="height: 150px">
+            <img class="py-1 d-block img-fluid" src="{% if coupon.shop.image_store %}
+                                                     {{ coupon.shop.image_store.url }}
+                                                     {% endif %}" alt="Промокод {{ coupon.title }}" style="width: 150px; height: 150px">
+            </figure>
+            <div class="card-body p-2">
+              <h4 class="card-title text-center mb-0">{{ coupon.title }}</h4>
+              <p class="text-center mt-2 mb-0">Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
             </div>
+              <a href="{{ coupon.shop.get_absolute_url }}" class="text-center mb-1">{{ coupon.shop.title }}</a>
+              <a href="#" class="btn btn-coupon btn-block card-footer text-white" data-toggle="modal" data-target="#{{ coupon.id }}">
+                  УЗНАТЬ ПРОМОКОД <i class="fas fa-angle-right"></i>
+              </a>
+          </div>
         </div>
+
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="{{ coupon.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header p-1">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+
+              </div>
+              <div class="modal-body">
+              <div class="row">
+                  <div class="col-md-12 align-content-center">
+
+                      <img class="py-2 d-block mx-auto align-items-center img-fluid" src="{% if coupon.shop.image_store %}
+                                                                                          {{ coupon.shop.image_store.url }}
+                                                                                          {% endif %}" alt="Промокод {{ coupon.title }}">
+
+                      <h3 class="text-center">{{ coupon.title }}</h3>
+                      <p class="text-center">{{ coupon.body }}</p>
+                        <p class="text-center mt-2 mb-2">Годен до {{ coupon.expired|date:"d.m.Y" }}</p>
+                      <div class="input-group mb-3">
+                        <input id="myInput" type="text" class="form-control text-center" value="{{ coupon.promocode }}" aria-describedby="promocode">
+
+                        <div class="input-group-append">
+                          <button id="copy-button" class="btn btn-outline-secondary" type="button" onclick="myFunction()">
+                            <i class="fas fa-copy"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a href="{{ coupon.coupon_link }}" class="btn d-block" target="_blank" style="color: #ffffff">Посетить магазин</a>
+                    </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+
+        <!-- row blog end -->
+        </div>
+
+          <!-- Pagination -->
+          {% include 'pagination.html' %}
     </div>
 
 
-</main>
-<!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
-{% endblock %}
+    <!-- Sidebar Widgets Column -->
+    <div class="col-md-4 col-xs-12">
+
+      <!-- Categories Widget -->
+        {% show_deal_category %}
+
+
+      <!-- Side deals Widget -->
+        {% show_last_deals %}
+      <!-- Side deals Widget end -->
+
+      <!-- Side shops Widget -->
+        {% trending_stores %}
+      <!-- Side shops Widget end -->
+
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+{%  endblock %}

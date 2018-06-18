@@ -7,11 +7,11 @@ from shop.models import Category, Deal, Store
 from django.db.models import Count
 
 
-
 @register.inclusion_tag('sidebar/category_deals_widget.html')
 def show_deal_category():
     show_cat = Category.objects.annotate(num_posts=Count('deal'))
-    return {'show_cat': show_cat}
+    categories = Category.objects.all()
+    return {'show_cat': show_cat, 'categories': categories}
 
 
 @register.inclusion_tag('sidebar/lasts_deals_widget.html')

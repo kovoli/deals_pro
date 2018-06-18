@@ -1,52 +1,36 @@
 {% load blog_tags %}
-<div class="page-sidebar col-md-4 col-sm-5 col-xs-12">
-<!-- Blog Sidebar -->
-<aside class="sidebar blog-sidebar">
-    <div class="row row-tb-10">
-        <div class="col-xs-12">
-            <!-- Search Form -->
-            <div class="widget search-form panel ptb-30 prl-20">
-                <div class="widget-body">
-                    <form method="get" action="{% url 'blog:search' %}">
-
-                        <div class="input-group">
-                            <input type="text" name="q" class="form-control" placeholder="Поиск по блогу...">
-                            <span class="input-group-btn">
-<button class="btn" type="submit"><i class="fa fa-search font-16"></i></button>
-</span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- End Search Form -->
+<div class="col-md-4 col-xs-12">
+  <!-- Search Widget -->
+  <div class="card my-4">
+    <div class="card-body">
+    <form method="get" action="{% url 'blog:search' %}">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Поиск по блогу">
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
+            </span>
         </div>
-        <div class="col-xs-12">
-            <!-- Recent Posts -->
-            {% show_latest_posts 5 %}
-            <!-- End Recent Posts -->
-        </div>
-        <div class="col-xs-12">
-            <!-- Categories Widget -->
-            {% show_categorys %}
-            <!-- End Categories Widget -->
-        </div>
-        <div class="col-xs-12">
-            <!-- Popular Tags -->
-            {% show_tags %}
-            <!-- End Popular Tags -->
-        </div>
-        <div class="col-xs-12">
-            <!-- Best Rated Deals -->
-            {% show_last_deals %}
-            <!-- Best Rated Deals -->
-        </div>
-        <div class="col-xs-12">
-            <!-- Trending Stores -->
-            {% trending_stores %}
-            <!-- End Trending Stores -->
-        </div>
-
+    </form>
     </div>
-</aside>
-<!-- End Blog Sidebar -->
+  </div>
+
+  <!-- Categories Widget -->
+  {% show_categorys %}
+
+  <!-- Side blog_post Widget -->
+  {% show_latest_posts 5 %}
+  <!-- Side blog_post Widget end -->
+
+  <!-- Side Tags Widget -->
+  {% show_tags %}
+  <!-- Side tags Widget end -->
+
+  <!-- Side deals Widget -->
+  {% show_last_deals 5 %}
+  <!-- Side deals Widget end -->
+
+  <!-- Side shops Widget -->
+  {% trending_stores 10 %}
+  <!-- Side shops Widget end -->
+
 </div>

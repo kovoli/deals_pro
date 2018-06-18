@@ -1,18 +1,15 @@
-<div class="widget trend-store-widget panel pt-20 prl-20">
-<h3 class="widget-title h-title">Популярные магазины</h3>
-<div class="widget-body ptb-30">
+<div class="card my-4">
+<h5 class="card-header">Популярные магазины</h5>
+<div class="row mx-0">
     {% for shop in show_shops %}
-    <div class="trend-store-item media">
-        <div class="post-thumb media-left">
-            <a href="{{ shop.get_absolute_url }}">
-                <img class="media-object pr-10" width="90" src="{% if shop.image_store %}{{ shop.image_store.url }}{% endif %}" alt="">
-            </a>
-        </div>
-        <div class="media-body">
-            <h5 class="mb-5">
-                    <a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a>
-            </h5>
-            <p class="color-mid">{{ shop.content|safe|truncatechars:45 }}</p>
+    <div class="col-sm-6 px-0">
+        <div class="card sidebar-card d-flex mx-auto align-items-center">
+          <a href="{{ shop.get_absolute_url }}">
+            <img class="d-block  m-2" src="{% if shop.image_store %}{{ shop.image_store.url }}{% endif %}" width="80" alt="Скидки в {{ shop.title }}">
+          </a>
+          <div class="card-body p-1">
+            <h6 class="card-title m-1"><a href="{{ shop.get_absolute_url }}">{{ shop.title }}</a></h6>
+          </div>
         </div>
     </div>
     {% endfor %}

@@ -5,94 +5,62 @@
 {% endblock %}
 
 {% block content %}
-<!-- –––––––––––––––[ PAGE CONTENT ]––––––––––––––– -->
-<main id="mainContent" class="main-content">
+<div class="container">
 
-<!-- Page Container -->
-<div class="page-container ptb-60">
-    <div class="container">
-        <div class="row row-rl-10 row-tb-20">
-            <div class="page-content col-xs-12 col-sm-7 col-md-8">
+      <!-- row blog -->
+      <div class="row">
 
-                <!-- Blog Area -->
-                <section class="blog-area blog-classic">
-                {% if category %}
-                    <div class="row row-tb-20">
-                        <div class="blog-post col-xs-12">
-                            <h2>Все записи из категории - {{ category.name }}</h2>
-                        </div>
+        <!-- Blog Entries Column -->
+        <div class="col-md-8 col-sm-12">
+          {% if category %}
+              <h1 class="my-4">Все записи из категории - {{ category.name }}</h1>
+          {% elif tag %}
+              <h1 class="my-4">Все записи с тэгом - {{ tag.name }}</h1>
+          {% else %}
+              <h1 class="my-4">Блог о скидках и акциях</h1>
+          {% endif %}
+
+          <div class="row">
+          <!-- Blog Post -->
+          {% for post in posts %}
+          <div class="col-lg-6 col-md-6 mb-4">
+              <div class="card h-100">
+
+                <figure class="figure-img d-flex mx-auto align-items-center">
+                <a href="{{ post.get_absolute_url }}"><img class="pt-0 d-block img-fluid" src="{% if post.image_list_blog %}{{ post.image_list_blog.url }}{% endif %}" alt="{{ post.title }}" height="230"></a>
+                </figure>
+                <div class="card-body p-3">
+                  <h4 class="card-title mb-1">
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                  </h4>
+                  <div class="entry-meta">
+                        <ul class="tag-info list-inline mb-1">
+                            <li class="pl-0"><i class="fas fa-calendar"></i> {{ post.publish|date:"d.m.Y" }}</li>
+                            <li class="pl-0"><i class="fas fa-tag"></i>
+                                <a href="{{ post.category.get_absolute_url }}"> {{ post.category.name }}</a>
+                            </li>
+                        </ul>
                     </div>
-                {% elif tag %}
-                    <div class="row row-tb-20">
-                        <div class="blog-post col-xs-12">
-                            <h2>Все записи с тэгом - {{ tag.name }}</h2>
-                        </div>
-                    </div>
-                {% endif %}
-
-                    <div class="row row-tb-20">
-                        {% for post in posts %}
-                        <!-- Blog Post -->
-                        <div class="blog-post col-xs-12">
-                            <article class="entry panel">
-                                <div class="row row-rl-0 row-tb-0 row-md-cell">
-                                    <div class="col-xs-12 col-md-6 col-lg-5">
-                                        <figure class="entry-media post-thumbnail embed-responsive embed-responsive-16by9 col-absolute-cell" data-bg-img="{% if post.image %}{{ post.image_list_blog.url }}{% endif %}"></figure>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-7 prl-15 prl-md-20 pt-20 pt-md-30 pb-15">
-                                        <div class="entry-wrapper">
-                                            <header class="entry-header">
-                                                <h3 class="entry-title mb-10 mb-md-15">
-                                        <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                                    </h3>
-                                                <div class="entry-meta mb-10">
-                                                    <ul class="tag-info list-inline">
-                                                        <li> <i class="icon fa fa-user"></i>{{ post.author }}</li>
-                                                        <li><i class="icon fa fa-calendar"></i>{{ post.publish|date:"d.m.Y" }}</li>
-                                                        <li><i class="icon fa fa-tag"></i>
-                                                            <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </header>
-
-                                            <div class="entry-content">
-                                                {{ post.body|safe|truncatechars:140 }}
-                                            </div>
-                                            <!-- .entry-wrapper -->
-
-                                            <footer class="entry-footer text-right">
-                                                <a href="{{ post.get_absolute_url }}" class="more-link btn btn-link">Читать дальше <i class="icon fa fa-long-arrow-right"></i></a>
-                                            </footer>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        <!-- End Blog Post -->
-                        {% endfor %}
-                    </div>
-
-                    <!-- Blog Pagination -->
-                    {% include "pagination.html" with page=posts %}
-                    <!-- End Blog Pagination -->
-
-                </section>
-                <!-- End Blog Area -->
-
+                <p class="card-text">{{ post.body|safe|truncatechars:140 }}</p>
+                </div>
+              </div>
             </div>
+           {% endfor %}
 
-
-                <!-- Blog Sidebar -->
-                {% include 'blog/sidebar/sidebar.html' %}
-                <!-- End Blog Sidebar -->
-
+        <!-- row blog end -->
         </div>
+
+          <!-- Pagination -->
+          {% include 'pagination.html' %}
+          </div>
+
+      <!-- Blog Sidebar -->
+                {% include 'blog/sidebar/sidebar.html' %}
+          <!-- End Blog Sidebar -->
+
+
+      </div>
+      <!-- /.row -->
+
     </div>
-</div>
-<!-- End Page Container -->
-
-
-</main>
-<!-- –––––––––––––––[ END PAGE CONTENT ]––––––––––––––– -->
 {% endblock %}

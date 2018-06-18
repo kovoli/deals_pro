@@ -81,7 +81,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to='post_image/%Y/%m/', blank=True)
     image_detail_blog = ImageSpecField(source='image',
-                                       processors=[ResizeToCover(753, 423)],
+                                       processors=[ResizeToFit(None, 650)],
                                        format='JPEG',
                                        options={'quality': 60})
     image_sidebar_blog = ImageSpecField(source='image',
@@ -89,12 +89,13 @@ class Post(models.Model):
                                         format='JPEG',
                                         options={'quality': 60})
     image_list_blog = ImageSpecField(source='image',
-                                     processors=[ResizeToCover(400, 400)],
+                                     processors=[ResizeToFit(None, 348)],
                                      format='JPEG',
                                      options={'quality': 60})
 
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
+
 
     def save(self, *args, **kwargs):
         if not self.slug:

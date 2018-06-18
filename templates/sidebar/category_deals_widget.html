@@ -1,14 +1,18 @@
-<div class="widget categories-widget panel pt-20 prl-20">
-    <div class="widget-header">
-        <h3 class="widget-title h-title">Категории</h3>
-    </div>
-    <div class="widget-body ptb-20">
-        <ul>
-            {% for category in show_cat %}
-                <li>
-                <a href="{{ category.get_absolute_url }}">{{ category }}<span>{{ category.num_posts }}</span></a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+{% load mptt_tags %}
+<div class="card my-4">
+<h5 class="card-header">Категории</h5>
+    {% recursetree categories %}
+        <h5 class="card-header">
+        <a data-toggle="collapse" href="#{{ node.id }}" role="button" aria-expanded="true" aria-controls="collapseExample">
+            {{ node.get_root }}
+        </a>
+        </h5>
+        <ul class="collapse list-group list-group-flush" id="{{ node.id }}">
+        {% recursetree node.get_children %}
+           <a href="{{ node.get_absolute_url }}"><li class="list-group-item">{{ node.name }}</li></a>
+        {% endrecursetree %}
+         </ul>
+    {% endrecursetree %}
 </div>
+
+

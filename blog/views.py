@@ -42,7 +42,6 @@ def search(request):
 
 def blog_detail(request, post):
     post = get_object_or_404(Post, slug=post)
-
     # List of similar posts
     post_tags_ids = post.tags.values_list('id', flat=True)
     similar_posts = Post.objects.filter(tags__in=post_tags_ids).exclude(id=post.id)

@@ -8,7 +8,7 @@ from imagekit.processors import Resize, ResizeCanvas, ResizeToFill, ResizeToCove
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 import random
-
+from mptt.models import MPTTModel, TreeForeignKey
 # Импорты для удаления картинок после удаления статьи
 import os
 from django.db.models.signals import pre_delete
@@ -42,9 +42,10 @@ class Store(models.Model):
         verbose_name_plural = 'Магазины'
 
 
-class Category(models.Model):
+class Category(MPTTModel):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -60,6 +61,9 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
         verbose_name_plural = 'Категории'
+
+    class MPTTMeta:
+        order_insertion_by = ['name']
 
 
 class CouponType(models.Model):
@@ -137,9 +141,9 @@ class Deal(models.Model):
     old_price = models.DecimalField(max_digits=10, decimal_places=2)
     url = models.URLField()
     views = models.PositiveIntegerField(default=0)
-    categoryId = models.ForeignKey(Category, on_delete=models.CASCADE)
+    categoryId = TreeForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     deals_image = ProcessedImageField(upload_to='deals_images/%Y/%m', blank=True, max_length=250,
-                                      processors=[ResizeToFit(None, 600)],
+                                      processors=[ResizeToFit(None, 394)],
                                       format='JPEG',
                                       options={'quality': 70})
     deals_grid_image = ImageSpecField(source='deals_image',

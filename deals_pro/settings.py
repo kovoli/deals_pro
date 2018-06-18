@@ -25,7 +25,7 @@ SECRET_KEY = '(dop^euu^*)b1bos#8@1ry_%v7)tu7rno*0wsa$+0d#xw6+w&6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 SITE_ID = 1
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'imagekit',
     'ckeditor',
     'watson',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -144,4 +145,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
 

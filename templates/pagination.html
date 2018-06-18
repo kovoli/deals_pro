@@ -1,34 +1,36 @@
-<!-- Blog Pagination -->
 {% if posts.has_other_pages %}
-<div class="page-pagination text-center mt-30 p-10 panel">
+  <!-- Pagination -->
+  <div class="card mb-4">
+
     <nav>
-        <!-- Page Pagination -->
-        <ul class="page-pagination pagination-sm">
-            {% if posts.has_previous %}
-                <li><a class="page-numbers" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-fast-backward" aria-hidden="true"></i></a></li>
-                <li><a class="page-numbers previous" href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-step-backward" aria-hidden="true"></i></a></li>
-            {% endif %}
 
-            {% for i in posts.paginator.page_range %}
+      <ul class="page-pagination text-center justify-content-center">
+        {% if posts.has_previous %}
+        <li><a class="page-numbers" href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" tabindex="-1"><i class="fas fa-fast-backward" aria-hidden="true"></i></a></li>
+        <li><a class="page-numbers previous" href="?page={{ posts.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fas fa-step-backward" aria-hidden="true"></i></a></li>
+      {% endif %}
 
-                {% if posts.number == i %}
-                    <li><span class="page-numbers current">{{ i }}</span></li>
-                    <!-- For the 1st page we do not use ?page=1 -->
-                        <!-- Show current page and +-3 pages -->
-                        {% elif i|add:"-5" <= posts.number and posts.number <= i|add:"2" %}
-                            <li><a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-numbers ">{{ i }}</a></li>
+      {% for i in posts.paginator.page_range %}
 
-                        {% endif %}
+        {% if posts.number == i %}
+        <li>
+          <a class="page-numbers current">{{ i }}</a>
+        </li>
+        <!-- For the 1st page we do not use ?page=1 -->
+        <!-- Show current page and +-3 pages -->
+        {% elif i|add:"-5" <= posts.number and posts.number <= i|add:"2" %}
+            <li><a href="?page={{ i }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-numbers ">{{ i }}</a></li>
+        {% endif %}
 
-
-            {% endfor %}
-            {% if posts.has_next %}
-                <li><a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-numbers next"><i class="fa fa-step-forward" aria-hidden="true"></i></a></li>
-                <li><a class="page-numbers" href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fa fa-fast-forward" aria-hidden="true"></i></a></li>
-            {% endif %}
-        </ul>
-        <!-- End Page Pagination -->
+        {% endfor %}
+        {% if posts.has_next %}
+          <li><li><a href="?page={{ posts.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="page-numbers next"><i class="fas fa-step-forward" aria-hidden="true"></i></a></li>
+          <li><a class="page-numbers previous" href="?page={{ posts.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fas fa-fast-forward" aria-hidden="true"></i></a></li>
+        {% endif %}
+      </ul>
     </nav>
-</div>
-<!-- End Blog Pagination -->
+
+  </div>
 {% endif %}
+
+
