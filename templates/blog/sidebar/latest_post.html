@@ -3,7 +3,7 @@
     <ul class="list-unstyled">
     {% for post in latest_posts %}
       <li class="media m-1">
-        <img class="mr-1" src="{% if post.image %}{{ post.image_sidebar_blog.url }}{% endif %}" alt="Скидка {{ post.title }}" height="80">
+        <img class="mr-1" src="{% if post.image %}{{ post.image_sidebar_blog.url }}{% endif %}" alt="Скидка {{ post.title }}" width="80" >
         <div class="media-body">
             <a href="{{ post.get_absolute_url }}"> <h5 class="mt-0 mb-1">{{ post.title }}</h5></a>
         </div>

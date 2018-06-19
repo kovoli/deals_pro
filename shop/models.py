@@ -140,6 +140,7 @@ class Deal(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     old_price = models.DecimalField(max_digits=10, decimal_places=2)
     url = models.URLField()
+    #offer_id = models.CharField(max_length=50, blank=True, null=True, unique=True)
     views = models.PositiveIntegerField(default=0)
     categoryId = TreeForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     deals_image = ProcessedImageField(upload_to='deals_images/%Y/%m', blank=True, max_length=250,
@@ -153,7 +154,7 @@ class Deal(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(unidecode(self.name + '___' + str(random.randrange(10, 10000))))
+            self.slug = slugify(unidecode(self.name + '_' + str(self.shop)))
         super(Deal, self).save()
 
 

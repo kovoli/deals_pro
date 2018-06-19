@@ -85,7 +85,7 @@ class Post(models.Model):
                                        format='JPEG',
                                        options={'quality': 60})
     image_sidebar_blog = ImageSpecField(source='image',
-                                        processors=[ResizeToCover(150, 150)],
+                                        processors=[ResizeToFit(150, 150)],
                                         format='JPEG',
                                         options={'quality': 60})
     image_list_blog = ImageSpecField(source='image',

@@ -88,6 +88,7 @@ while True:
         oldprice = offer.find('oldprice').text
         name = offer.find('name').text
         vendor = offer.find('vendor').text
+        #offer_id = offer.attrib['id']
         price = offer.find('price').text
         url = offer.find('url').text
         regex = r"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|\:)\s"
@@ -113,6 +114,7 @@ while True:
         print('Получилось')
         #print(only_ten)
     except Exception as a:
+        offers.remove(offer)
         print(a)
 mydata = ET.tostring(root, encoding="utf-8").decode("utf-8")
 myfile = open("{}_imports.xml".format(name_cat), "w")

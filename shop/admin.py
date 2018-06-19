@@ -38,6 +38,7 @@ class DealAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     readonly_fields = ('slug',)
     list_editable = ['price', 'old_price', 'categoryId']
+    list_filter = ('categoryId',)
 
 
 admin.site.register(Deal, DealAdmin)
