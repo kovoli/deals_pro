@@ -1,4 +1,4 @@
-Django==2.0.5
+Django
 django-appconf==1.0.2
 django-ckeditor==5.4.0
 django-classy-tags==0.8.0
